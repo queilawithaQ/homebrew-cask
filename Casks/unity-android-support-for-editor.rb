@@ -1,8 +1,8 @@
 cask "unity-android-support-for-editor" do
-  version "2021.2.3f1,32358a8527b4"
-  sha256 "cf19a73a85360977a2fa247dccfb2aa4471bf4ff107908a9913901b026f4cb2c"
+  version "2021.2.5f1,4ec9a5e799f5"
+  sha256 "ea245db15488a1c30ec8e068372cffc2a65ab5cdfb3f573630f6016d7d651769"
 
-  url "https://download.unity3d.com/download_unity/#{version.after_comma}/MacEditorTargetInstaller/UnitySetup-Android-Support-for-Editor-#{version.before_comma}.pkg",
+  url "https://download.unity3d.com/download_unity/#{version.csv.second}/MacEditorTargetInstaller/UnitySetup-Android-Support-for-Editor-#{version.csv.first}.pkg",
       verified: "download.unity3d.com/download_unity/"
   name "Unity Android Build Support"
   desc "Android target support for Unity"
@@ -22,7 +22,7 @@ cask "unity-android-support-for-editor" do
 
   depends_on cask: "unity"
 
-  pkg "UnitySetup-Android-Support-for-Editor-#{version.before_comma}.pkg"
+  pkg "UnitySetup-Android-Support-for-Editor-#{version.csv.first}.pkg"
 
   uninstall pkgutil: "com.unity3d.AndroidPlayer"
 end

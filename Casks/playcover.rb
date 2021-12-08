@@ -1,6 +1,6 @@
 cask "playcover" do
-  version "0.8.9"
-  sha256 "0a330ffedd068ea84385d5f97a08646d93637f4e0708c6a3cea7bd9f27af658a"
+  version "0.9.2"
+  sha256 "cbcc51a37079219d171ac7eb41eb51c7469192628db5db2359670ee25831d87a"
 
   url "https://github.com/iVoider/PlayCover/releases/download/#{version}/PlayCover.#{version}.zip",
       verified: "github.com/iVoider/PlayCover/"

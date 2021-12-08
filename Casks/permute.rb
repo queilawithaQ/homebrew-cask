@@ -1,8 +1,8 @@
 cask "permute" do
-  version "3.7.5,2525"
-  sha256 "68ce17d72b6036ae184052a4749c4c732cd60e7d8b0881904761ecfecd250e15"
+  version "3.7.7,2537"
+  sha256 "9ee249d81e8ce5b3d6fed2910dba607074f212da335087bc264b2af9fd2d1bd9"
 
-  url "https://trial.charliemonroe.net/permute/v#{version.major}/Permute_#{version.major}_#{version.after_comma}.dmg"
+  url "https://trial.charliemonroe.net/permute/v#{version.major}/Permute_#{version.major}_#{version.csv.second}.dmg"
   name "Permute"
   desc "Converts and edits video, audio or image files"
   homepage "https://software.charliemonroe.net/permute.php"
@@ -13,7 +13,7 @@ cask "permute" do
   end
 
   auto_updates true
-  depends_on macos: ">= :el_capitan"
+  depends_on macos: ">= :sierra"
 
   app "Permute #{version.major}.app"
 

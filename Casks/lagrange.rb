@@ -1,12 +1,12 @@
 cask "lagrange" do
   arch = Hardware::CPU.intel? ? "macos10.13-x86_64" : "macos11.0-arm64"
 
-  version "1.8.2"
+  version "1.9.2"
 
   if Hardware::CPU.intel?
-    sha256 "be6cf80002c9ec80184188e01db457d7e1f8758c1a26aa5796c69987c3019711"
+    sha256 "a8df827ce408dba6d6912b78f2caccba1662ce3c1bd7ba8f3ef3a026f219abaa"
   else
-    sha256 "39182aa5d16c826f4ea8dcc0e6f0a9f898009b95fa47464af330d353dc48e015"
+    sha256 "034a2c95fcbbae9f17b74e0bc25b12c2c924b5bb95cf4d317c662437de58698b"
   end
 
   url "https://github.com/skyjake/lagrange/releases/download/v#{version}/lagrange_v#{version}_#{arch}.tbz",
@@ -15,6 +15,7 @@ cask "lagrange" do
   desc "Desktop GUI client for browsing Geminispace"
   homepage "https://gmi.skyjake.fi/lagrange/"
 
+  auto_updates true
   depends_on macos: ">= :high_sierra"
 
   app "Lagrange.app"
