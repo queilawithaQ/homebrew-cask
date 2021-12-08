@@ -1,10 +1,18 @@
 cask "onlyoffice" do
-  version "6.0"
-  sha256 "cbb4c94e62745f31d70da2dcfc84185f8926ae1bd49c3663755417bf45fd3381"
+  arch = Hardware::CPU.intel? ? "x86-64" : "arm"
 
-  url "https://download.onlyoffice.com/install/desktop/editors/mac/updates/onlyoffice/ONLYOFFICE-#{version}.zip"
-  appcast "https://download.onlyoffice.com/install/desktop/editors/mac/onlyoffice.xml"
+  version "6.4.2"
+
+  if Hardware::CPU.intel?
+    sha256 "ccd92a0a52805de903d7ff1fff6becc1c7814490f2d8feb63033d0930966e0b7"
+  else
+    sha256 "828734f2dd15a0ee5bc59eb235080ec2dd9b7c1e9add71f4318a04b61f1e7cdb"
+  end
+
+  url "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v#{version}/ONLYOFFICE-#{arch}.dmg",
+      verified: "github.com/ONLYOFFICE/DesktopEditors/"
   name "ONLYOFFICE"
+  desc "Document editor"
   homepage "https://www.onlyoffice.com/"
 
   auto_updates true

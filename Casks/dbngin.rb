@@ -1,14 +1,20 @@
 cask "dbngin" do
-  version "32"
-  sha256 "11f06e7fc877392f70860cbbf86191271233d74de325ff5d3916bcb77bff7c14"
+  version "4.0,42"
+  sha256 "826d782bdd8a6c901e11c141f2f989422493926020873dc5a3cde5f6a5e608f8"
 
-  # dbngin-osx-builds.s3.amazonaws.com/ was verified as official when first introduced to the cask
-  url "https://dbngin-osx-builds.s3.amazonaws.com/#{version}/DBngin.dmg"
-  appcast "https://dbngin.com/osx/version.xml"
+  url "https://dbngin-osx-builds.s3.amazonaws.com/#{version.after_comma}/DBngin.dmg",
+      verified: "dbngin-osx-builds.s3.amazonaws.com/"
   name "DBngin"
+  desc "Database version management tool"
   homepage "https://dbngin.com/"
 
+  livecheck do
+    url "https://dbngin.com/osx/version.xml"
+    strategy :sparkle
+  end
+
   auto_updates true
+  depends_on macos: ">= :el_capitan"
 
   app "DBngin.app"
 

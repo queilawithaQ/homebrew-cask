@@ -1,21 +1,37 @@
 cask "jetbrains-toolbox" do
-  version "1.18.7455"
-  sha256 "b7b7d4d28448a39214e3ba435af93a137e67ecde85e6ed9f06fa290deba88936"
+  arch = Hardware::CPU.intel? ? "" : "-arm64"
 
-  url "https://download.jetbrains.com/toolbox/jetbrains-toolbox-#{version}.dmg"
-  appcast "https://data.services.jetbrains.com/products/releases?code=TBA&latest=true&type=release"
+  version "1.22,1.22.10774"
+
+  if Hardware::CPU.intel?
+    sha256 "7ce32584ecc7012930d72f9871e5fba57d205a56726d1cb786bc0177ee3756eb"
+  else
+    sha256 "c3502cb63298876233e8ed66a1db8b9b90ab43501fe4ea8c9666970fdd2d95ff"
+  end
+
+  url "https://download.jetbrains.com/toolbox/jetbrains-toolbox-#{version.after_comma}#{arch}.dmg"
   name "JetBrains Toolbox"
   desc "JetBrains tools manager"
-  homepage "https://www.jetbrains.com/toolbox/app/"
+  homepage "https://www.jetbrains.com/toolbox-app/"
+
+  livecheck do
+    url "https://data.services.jetbrains.com/products/releases?code=TBA&latest=true&type=release"
+    strategy :page_match do |page|
+      JSON.parse(page)["TBA"].map do |release|
+        "#{release["version"]},#{release["build"]}"
+      end
+    end
+  end
 
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
   app "JetBrains Toolbox.app"
 
   zap trash: [
-    "~/Library/Saved Application State/com.jetbrains.toolbox.savedState",
+    "~/Library/Application Support/JetBrains/Toolbox",
     "~/Library/Logs/JetBrains/Toolbox",
     "~/Library/Preferences/com.jetbrains.toolbox.renderer.plist",
-    "~/Library/Application Support/JetBrains/Toolbox",
+    "~/Library/Saved Application State/com.jetbrains.toolbox.savedState",
   ]
 end

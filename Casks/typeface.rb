@@ -1,12 +1,16 @@
 cask "typeface" do
-  version "2.7.0,2023"
-  sha256 "44884da6ab1c23f0b068b4f2f23cf9012d8df53c6df847833ecff5c857a5aca8"
+  version "3.4.1,3046"
+  sha256 "7706eca286f2b59d97a1e217ca64b44b9dd25f4fdc2acdefe463091eb1b2a3dd"
 
-  url "https://dcdn.typefaceapp.com/latest"
-  appcast "https://dcdn.typefaceapp.com/appcast.xml"
+  url "https://dcdn.typefaceapp.com/Typeface-#{version.before_comma}-#{version.after_comma}/Typeface-#{version.before_comma}-#{version.after_comma}.dmg"
   name "Typeface"
   desc "Font manager application"
   homepage "https://typefaceapp.com/"
+
+  livecheck do
+    url "https://dcdn.typefaceapp.com/appcast.xml"
+    strategy :sparkle
+  end
 
   app "Typeface.app"
 end

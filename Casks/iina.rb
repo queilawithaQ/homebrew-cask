@@ -1,12 +1,16 @@
 cask "iina" do
-  version "1.1.0"
-  sha256 "44346b32137be39f74206181a370dac28ff0ae645d2c809f136f019b11863e27"
+  version "1.2.0,129"
+  sha256 "91b87e80055f097a1cb7a8c91979deb5303315f2067552cbe7387f48bfc42736"
 
-  url "https://dl-portal.iina.io/IINA.v#{version}.dmg"
-  appcast "https://iina.io/appcast.xml"
+  url "https://dl.iina.io/IINA.v#{version.before_comma}.dmg"
   name "IINA"
   desc "Free and open-source media player"
   homepage "https://iina.io/"
+
+  livecheck do
+    url "https://www.iina.io/appcast.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
   depends_on macos: ">= :el_capitan"

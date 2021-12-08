@@ -1,11 +1,16 @@
 cask "steermouse" do
-  version "5.5.3"
-  sha256 "0283fc6ff7769c332fe2418992ebbf1dc76207666190dadc94a44d38ed857eec"
+  version "5.6"
+  sha256 "720ac0f9616e58ebb59ae01e726aaddee0a1207ab732d20dd03ff55b1a17d4fc"
 
   url "https://plentycom.jp/ctrl/files_sm/SteerMouse#{version}.dmg"
-  appcast "https://plentycom.jp/en/steermouse/download.php"
   name "SteerMouse"
+  desc "Customize mouse buttons, wheels and cursor speed"
   homepage "https://plentycom.jp/en/steermouse/"
+
+  livecheck do
+    url "https://plentycom.jp/en/steermouse/download.php"
+    regex(/href=.*?SteerMouse[._-]?v?(\d+(?:\.\d+)+)\.dmg/i)
+  end
 
   prefpane "SteerMouse.prefPane"
 

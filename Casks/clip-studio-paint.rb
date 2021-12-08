@@ -1,12 +1,18 @@
 cask "clip-studio-paint" do
-  version "1.10.1"
-  sha256 "ab381e7bcb4a4b7ffd5095e00df4e0e86a20ffb901dab0eb75481b2f61749ebd"
+  version "1.11.4"
+  sha256 "c3b9d1ee742cf8924c672861f41d35fb0c1c881dfd3175e52b4cf9d1a839774f"
 
   url "https://vd.clipstudio.net/clipcontent/paint/app/#{version.no_dots}/CSP_#{version.no_dots}m_app.pkg"
-  appcast "https://www.clipstudio.net/en/dl",
-          must_contain: version.no_dots
-  name "CLIP STUDIO PAINT"
+  name "Clip Studio Paint"
+  desc "Software for drawing and painting"
   homepage "https://www.clipstudio.net/en"
+
+  livecheck do
+    url "https://www.clipstudio.net/en/dl/release_note/"
+    regex(/Clip\s+Studio\s+Paint\s+(?:v|Ver\.?|Version)?\s*(\d+(?:\.\d+)+)/i)
+  end
+
+  depends_on macos: ">= :high_sierra"
 
   installer manual: "CSP_#{version.no_dots}m_app.pkg"
 

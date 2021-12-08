@@ -1,11 +1,16 @@
 cask "uninstallpkg" do
-  version "1.1.8"
-  sha256 "d5b466d04e8594d166d05969b8df056d4c0e35ebd4e2934cc1528881b5f7be80"
+  version "1.2.0,1516"
+  sha256 "35441d5520cdf0ac35e20c76704a65c97183d3729c49d1012c16a55a7056f70d"
 
-  url "https://www.corecode.io/downloads/uninstallpkg_#{version}.zip"
-  appcast "https://www.corecode.io/uninstallpkg/uninstallpkg.xml"
+  url "https://www.corecode.io/downloads/uninstallpkg_#{version.before_comma}.zip"
   name "UninstallPKG"
+  desc "PKG software package uninstall tool"
   homepage "https://www.corecode.io/uninstallpkg/"
+
+  livecheck do
+    url "https://www.corecode.io/uninstallpkg/uninstallpkg.xml"
+    strategy :sparkle
+  end
 
   depends_on macos: ">= :mojave"
 

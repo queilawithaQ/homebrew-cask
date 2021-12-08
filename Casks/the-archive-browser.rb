@@ -1,12 +1,19 @@
 cask "the-archive-browser" do
-  version "1.11.2,1504018288"
+  version "1.11.2,111,1504018288"
   sha256 "a9cffc4d7a4e9869c9b7542dff7b9614c487623fce6404ce779b0c4b654eb72b"
 
-  # dl.devmate.com/cx.c3.thearchivebrowser/ was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/cx.c3.thearchivebrowser/#{version.major_minor.no_dots}/#{version.after_comma}/TheArchiveBrowser-#{version.major_minor.no_dots}.zip"
-  appcast "https://updates.devmate.com/cx.c3.thearchivebrowser.xml"
+  url "https://dl.devmate.com/cx.c3.thearchivebrowser/#{version.csv.second}/#{version.csv.third}/TheArchiveBrowser-#{version.csv.second}.zip",
+      verified: "dl.devmate.com/cx.c3.thearchivebrowser/"
   name "The Archive Browser"
+  desc "Browse the contents of archives"
   homepage "https://theunarchiver.com/archive-browser"
+
+  livecheck do
+    url "https://updates.devmate.com/cx.c3.thearchivebrowser.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version},#{item.version},#{item.url[%r{/(\d+)/TheArchiveBrowser-\d+\.zip}i, 1]}"
+    end
+  end
 
   auto_updates true
 

@@ -1,12 +1,16 @@
 cask "xamarin-android" do
-  version "11.0.2.0"
-  sha256 "2f02f74d5e2813d3a5ea8a38e2a9213664820cd1d7b00c3f7d8c9270d5202c87"
+  version "12.0.0.3"
+  sha256 "10777dbb5d636d1e9563b07cce892c6d1764750bec97df081562facb06491e54"
 
   url "https://dl.xamarin.com/MonoforAndroid/Mac/xamarin.android-#{version}.pkg"
-  appcast "https://docs.microsoft.com/en-us/xamarin/android/release-notes/",
-          must_contain: version.major_minor
   name "Xamarin.Android"
+  desc "Gives .NET developers complete access to Android SDK's"
   homepage "https://www.xamarin.com/platform"
+
+  livecheck do
+    url "https://software.xamarin.com/Service/Updates?v=2&pvd1ec039f-f3db-468b-a508-896d7c382999=0"
+    regex(%r{/xamarin\.android[._-]v?(\d+(?:\.\d+)+)\.pkg}i)
+  end
 
   pkg "xamarin.android-#{version}.pkg"
 

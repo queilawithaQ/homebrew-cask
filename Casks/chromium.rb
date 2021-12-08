@@ -1,13 +1,24 @@
 cask "chromium" do
-  version "818318"
-  sha256 "10d2d6ba135941c2f7eea9ea55f587e1bf3cd62d92daa0cd6da0b568b64fd1b9"
+  arch = Hardware::CPU.intel? ? "Mac" : "Mac_Arm"
 
-  # commondatastorage.googleapis.com/chromium-browser-snapshots/Mac/ was verified as official when first introduced to the cask
-  url "https://commondatastorage.googleapis.com/chromium-browser-snapshots/Mac/#{version}/chrome-mac.zip"
-  appcast "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Mac%2FLAST_CHANGE?alt=media"
+  version "948906"
+
+  if Hardware::CPU.intel?
+    sha256 "dee4dbb296e672d2e7e552d865d82c3248b2534b232ee638f472aa3a8948b223"
+  else
+    sha256 "823c1c56a981619d4a1fb029ba415ab6a0d47caf70c70d337d64651a2e6d82d9"
+  end
+
+  url "https://commondatastorage.googleapis.com/chromium-browser-snapshots/#{arch}/#{version}/chrome-mac.zip",
+      verified: "commondatastorage.googleapis.com/chromium-browser-snapshots/"
   name "Chromium"
   desc "Free and open-source web browser"
   homepage "https://www.chromium.org/Home"
+
+  livecheck do
+    url "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/#{arch}%2FLAST_CHANGE?alt=media"
+    regex(/v?(\d+(?:\.\d+)*)/i)
+  end
 
   conflicts_with cask: [
     "eloston-chromium",
@@ -20,9 +31,9 @@ cask "chromium" do
   binary shimscript, target: "chromium"
 
   preflight do
-    IO.write shimscript, <<~EOS
+    File.write shimscript, <<~EOS
       #!/bin/sh
-      '#{appdir}/Chromium.app/Contents/MacOS/Chromium' "$@"
+      exec '#{appdir}/Chromium.app/Contents/MacOS/Chromium' "$@"
     EOS
   end
 

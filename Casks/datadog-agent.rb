@@ -1,13 +1,17 @@
 cask "datadog-agent" do
-  version "7.22.0-1"
-  sha256 "ceb52c36924959c6dc88c75f7f403361937ced94efaf9bbf70fbdd895bb81e21"
+  version "7.32.1-1"
+  sha256 "90f3f602816496c9778a8e92f300f56234b4d64cc7f3abc3f18c1fc407d075de"
 
-  # s3.amazonaws.com/dd-agent/ was verified as official when first introduced to the cask
-  url "https://s3.amazonaws.com/dd-agent/datadog-agent-#{version}.dmg"
-  appcast "https://s3.amazonaws.com/dd-agent/"
+  url "https://s3.amazonaws.com/dd-agent/datadog-agent-#{version}.dmg",
+      verified: "s3.amazonaws.com/dd-agent/"
   name "Datadog Agent"
   desc "Monitoring and security across systems, apps, and services"
   homepage "https://www.datadoghq.com/"
+
+  livecheck do
+    url "https://s3.amazonaws.com/dd-agent/"
+    regex(%r{<Key>datadog-agent-([\d.-]+)\.dmg</Key>}i)
+  end
 
   installer manual: "datadog-agent-#{version}.pkg"
 
@@ -16,13 +20,13 @@ cask "datadog-agent" do
             pkgutil:   "com.datadoghq.agent",
             delete:    [
               "/Applications/Datadog Agent.app",
-              "/opt/datadog-agent",
               "/usr/local/bin/datadog-agent",
             ]
 
   zap trash: [
     "~/.datadog-agent",
     "~/Library/LaunchAgents/com.datadoghq.agent.plist",
+    "/opt/datadog-agent",
   ]
 
   caveats <<~EOS

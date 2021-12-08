@@ -1,12 +1,16 @@
 cask "alt-tab" do
-  version "6.7.4"
-  sha256 "64fc5ebc7381ac3642086d42f6a2cc84ba340cd0871ed362b9dbf49619fc174b"
+  version "6.29.0"
+  sha256 "d68bc8f7f041b904efb10ff47a8e597be12ea8f4ce9a452e459de5f93d2f2dfb"
 
   url "https://github.com/lwouis/alt-tab-macos/releases/download/v#{version}/AltTab-#{version}.zip"
-  appcast "https://github.com/lwouis/alt-tab-macos/releases.atom"
-  name "alt-tab"
-  desc "Utility to set up alt-tap to switch between windows"
+  name "AltTab"
+  desc "Enable Windows-like alt-tab"
   homepage "https://github.com/lwouis/alt-tab-macos"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   auto_updates true
   depends_on macos: ">= :sierra"
@@ -19,6 +23,7 @@ cask "alt-tab" do
     "~/Library/Application Support/com.lwouis.alt-tab-macos",
     "~/Library/Caches/com.lwouis.alt-tab-macos",
     "~/Library/Cookies/com.lwouis.alt-tab-macos.binarycookies",
+    "~/Library/LaunchAgents/com.lwouis.alt-tab-macos.plist",
     "~/Library/Preferences/com.lwouis.alt-tab-macos.plist",
   ]
 end

@@ -1,12 +1,23 @@
 cask "curio" do
-  version "14030.6"
-  sha256 "46a2e9a67ce521e5b1c1216a1cecf14a32279150f67b9f0624352b1b5c23019e"
+  version "19,19006"
+  sha256 "e2ee57fbc298573e83da89f25b7c3f11aa71ddd6c1d76ad4d81d3b5782623141"
 
-  url "https://www.zengobi.com/downloads/Curio#{version.no_dots}.zip"
-  appcast "https://www.zengobi.com/appcasts/Curio14-2ZaxaUUlKorRS4Hf.xml"
+  url "https://www.zengobi.com/downloads/Curio#{version.csv.second.no_dots}.zip"
   name "Curio"
   desc "Note-taking and organizing app"
   homepage "https://zengobi.com/curio/"
+
+  livecheck do
+    url "https://www.zengobi.com/curio/download/"
+    strategy :header_match do |headers|
+      match = headers["location"].match(%r{/Curio(\d+)\.zip})
+      next if match.blank?
+
+      puts match
+
+      "#{match[1][0..1]},#{match[1]}"
+    end
+  end
 
   depends_on macos: ">= :mojave"
 

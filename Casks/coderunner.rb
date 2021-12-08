@@ -1,12 +1,18 @@
 cask "coderunner" do
-  version "3.1"
-  sha256 "c85ee95a52af5986a0279a8191feff3f0c7d9f86b0f8030779b48b6a33541bee"
+  version "4.1,62956"
+  sha256 "3f6490d37f28b1e6185dd2aa88f63d9cd8e47c174cc6e46051981d39c946cb71"
 
-  url "https://coderunnerapp.com/download/update/CodeRunner-#{version}.zip"
-  appcast "https://coderunnerapp.com/appcast.xml"
+  url "https://coderunnerapp.com/download/update/CodeRunner-#{version.before_comma}.zip"
   name "CodeRunner"
   desc "Multi-language programming editor"
   homepage "https://coderunnerapp.com/"
+
+  livecheck do
+    url "https://coderunnerapp.com/appcast.xml"
+    strategy :sparkle
+  end
+
+  auto_updates true
 
   app "CodeRunner.app"
 

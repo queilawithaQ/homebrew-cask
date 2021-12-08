@@ -1,11 +1,28 @@
 cask "burp-suite" do
-  version "2020.9.2"
-  sha256 "1580ca4c86c119d16c90c7a9cb5d023478356ea0b28886ece952a5e6ac235cdb"
+  version "2021.10.3"
+  sha256 "495476d68622657e0376b4dfaddccba27cbfaabe900771a4acd2799c79f82819"
 
   url "https://portswigger.net/burp/releases/download?product=community&version=#{version}&type=MacOsx"
-  appcast "https://portswigger.net/burp/releases?initialTab=community"
-  name "Burp Suite"
+  name "Burp Suite Community Edition"
+  desc "Web security testing toolkit"
   homepage "https://portswigger.net/burp/"
+
+  livecheck do
+    url "https://portswigger.net/burp/releases/data"
+    strategy :page_match do |page|
+      all_versions = JSON.parse(page)["ResultSet"]["Results"]
+      next if all_versions.blank?
+
+      all_versions.map do |item|
+        item["version"] if
+              item["releaseChannels"].include?("Stable") &&
+              item["categories"].include?("Community") &&
+              item["builds"].any? do |build|
+                build["ProductPlatform"] == "MacOsx"
+              end
+      end.compact
+    end
+  end
 
   installer script: {
     executable: "Burp Suite Community Edition Installer.app/Contents/MacOS/JavaApplicationStub",

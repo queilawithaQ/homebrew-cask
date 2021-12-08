@@ -1,13 +1,24 @@
 cask "electron-fiddle" do
-  version "0.16.0"
-  sha256 "b3a70530aa6422b208663e025ec25a1047f40e08f970e6d6a84fa65ad978b251"
+  arch = Hardware::CPU.intel? ? "x64" : "arm64"
 
-  # github.com/electron/fiddle/ was verified as official when first introduced to the cask
-  url "https://github.com/electron/fiddle/releases/download/v#{version}/Electron.Fiddle-darwin-x64-#{version}.zip"
-  appcast "https://github.com/electron/fiddle/releases.atom"
+  version "0.27.2"
+
+  if Hardware::CPU.intel?
+    sha256 "d5dc8c4ff806ff919a75985ecffae6b056a99ed953308ed0bcc523831ca96905"
+  else
+    sha256 "a8c9e377dfa53fb3c6c218b3bedb9196e75ca482c662f3537b9ba3eb8a4cf1e8"
+  end
+
+  url "https://github.com/electron/fiddle/releases/download/v#{version}/Electron.Fiddle-darwin-#{arch}-#{version}.zip",
+      verified: "github.com/electron/fiddle/"
   name "Electron Fiddle"
-  desc "Easiest way to get started with Electron"
-  homepage "https://electron.atom.io/"
+  desc "Create and play with small Electron experiments"
+  homepage "https://www.electronjs.org/fiddle"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   app "Electron Fiddle.app"
 

@@ -1,11 +1,17 @@
 cask "geneious-prime" do
-  version "2020.2.4"
-  sha256 "9a5784d3ca90ed16d153f5cb36276ee59886c1d55802d34d7f0d7bcbfb974bc7"
+  version "2022.0.1"
+  sha256 "23fe3457585632b334664b272be0ac44e3fe5c5b350fda2075a02256a7e3dc1e"
 
   url "https://assets.geneious.com/installers/geneious/release/Geneious_Prime_mac64_#{version.dots_to_underscores}_with_jre.dmg"
-  appcast "https://www.geneious.com/download/"
   name "Geneious Prime"
+  desc "Bioinformatics software platform"
   homepage "https://www.geneious.com/"
+
+  livecheck do
+    url "https://www.geneious.com/download/"
+    strategy :page_match
+    regex(/Prime\s*(\d+(?:\.\d+)*)/i)
+  end
 
   app "Geneious Prime.app"
 end

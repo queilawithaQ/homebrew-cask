@@ -1,12 +1,17 @@
 cask "dangerzone" do
-  version "0.1.3"
-  sha256 "01b8f8b1315d43ce01695d20803d43d98dccf0dff6c3a12b53c009bed4d906c6"
+  version "0.3"
+  sha256 "20b5e90d231e694aec009f7ded57dbc95c378f394a25cb9153296636bd5fc10c"
 
-  # github.com/firstlookmedia/dangerzone/ was verified as official when first introduced to the cask
-  url "https://github.com/firstlookmedia/dangerzone/releases/download/v#{version}/Dangerzone.#{version}.dmg"
-  appcast "https://github.com/firstlookmedia/dangerzone/releases.atom"
+  url "https://github.com/firstlookmedia/dangerzone/releases/download/v#{version}/Dangerzone-#{version}.dmg",
+      verified: "github.com/firstlookmedia/dangerzone/"
   name "Dangerzone"
+  desc "Convert potentially dangerous PDFs or Office documents into safe PDFs"
   homepage "https://dangerzone.rocks/"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   app "Dangerzone.app"
 end

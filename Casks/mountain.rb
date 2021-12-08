@@ -1,11 +1,23 @@
 cask "mountain" do
-  version "1.6.6"
-  sha256 "22496566734b7b610a24e3c7700b123a17c5502fdc1562d35d65c04ecf5e7070"
+  version "1.6.6,54"
+  sha256 :no_check
 
   url "https://appgineers.de/mountain/files/Mountain.zip"
-  appcast "https://appgineers.de/mountain/files/mountaincast.xml"
   name "Mountain"
+  desc "Display notifications when mounting/unmounting volumes"
   homepage "https://appgineers.de/mountain/"
 
+  livecheck do
+    url "https://appgineers.de/mountain/files/mountaincast.xml"
+    strategy :sparkle
+  end
+
   app "Mountain.app"
+
+  zap trash: [
+    "~/Library/Application Support/Mountain",
+    "~/Library/Preferences/de.appgineers.Mountain.plist",
+    "/Library/LaunchDaemons/de.appgineers.Mountain.Helper.plist",
+    "/Library/PrivilegedHelperTools/de.appgineers.Mountain.Helper",
+  ]
 end

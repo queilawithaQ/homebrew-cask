@@ -1,12 +1,17 @@
 cask "wormhole" do
-  version "1.3.6"
-  sha256 "f6d7f6f819c26abfe55af98f353cd1774922798867ab955ba5ec831c07662fcd"
+  version "1.5.8"
+  sha256 :no_check
 
-  # files.octopusgame.com/ was verified as official when first introduced to the cask
-  url "https://files.octopusgame.com/os/WormholeInstaller.dmg"
-  appcast "https://er.run/release"
+  url "https://files.octopusgame.com/os/WormholeInstaller.dmg",
+      verified: "files.octopusgame.com/"
   name "Wormhole"
+  desc "Browse & Control phone on PC, Screen Fusion for iOS & Android"
   homepage "https://er.run/"
+
+  livecheck do
+    url "https://er.run/release"
+    regex(/<div[^>]*class=["']?version[^>]*>\s*<div[^>]*>\s*v?(\d+(?:\.\d+)+)\s*</i)
+  end
 
   app "Wormhole.app"
 

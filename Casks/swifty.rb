@@ -1,10 +1,9 @@
 cask "swifty" do
-  version "0.6.0"
-  sha256 "ea4d11b0525d3417bfe02172ca550a00d66d004c84bb94f0d0362568373076b4"
+  version "0.6.6"
+  sha256 "e50e533fc325fc264dc6f043aca60e76be578ebb8010a620f9c0d4cbab6d2255"
 
-  # github.com/swiftyapp/swifty/ was verified as official when first introduced to the cask
-  url "https://github.com/swiftyapp/swifty/releases/download/v#{version}/Swifty-#{version}.dmg"
-  appcast "https://github.com/swiftyapp/swifty/releases.atom"
+  url "https://github.com/swiftyapp/swifty/releases/download/v#{version}/Swifty-#{version}.dmg",
+      verified: "github.com/swiftyapp/swifty/"
   name "Swifty"
   desc "Offline password manager tool"
   homepage "https://getswifty.pro/"

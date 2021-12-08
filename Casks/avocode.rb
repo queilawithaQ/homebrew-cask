@@ -1,13 +1,19 @@
 cask "avocode" do
-  version "4.10.0"
-  sha256 "bbb17732319efb31db5d09a906fc98d9e304caa431b097cb0582a9a08ef98704"
+  version "4.15.5"
+  sha256 "169131696c74fcbedd4eb0905eca56ddbcd11a7c16224c244ed5c83b471cf895"
 
   url "https://media.avocode.com/download/avocode-app/#{version}/Avocode-#{version}-mac.zip"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://manager.avocode.com/download/avocode-app/mac-dmg/"
   name "Avocode"
+  desc "Collaborate on design files"
   homepage "https://avocode.com/"
 
+  livecheck do
+    url "https://manager.avocode.com/download/avocode-app/mac-dmg/"
+    strategy :header_match
+  end
+
   auto_updates true
+  depends_on macos: ">= :el_capitan"
 
   app "Avocode.app"
 

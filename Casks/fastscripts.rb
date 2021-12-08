@@ -1,14 +1,27 @@
 cask "fastscripts" do
-  version "2.8.2"
-  sha256 "3f14a8cb630372753aae843852c2a55ada9e7fe3eba06a1208086bb4ee99234c"
+  version "3.0.3,1548"
+  sha256 "3a06ab40067c46f301d7be36d300a344ec42e501ff8eb919d4b380e279c1e4a0"
 
-  url "https://red-sweater.com/fastscripts/FastScripts#{version}.zip"
-  appcast "https://red-sweater.com/fastscripts/appcast2.php"
+  url "https://redsweater.com/fastscripts/FastScripts#{version.csv.first}.zip"
   name "FastScripts"
   desc "Tool for running time-saving scripts"
-  homepage "https://red-sweater.com/fastscripts/"
+  homepage "https://redsweater.com/fastscripts/"
 
-  depends_on macos: ">= :sierra"
+  livecheck do
+    url "https://redsweater.com/fastscripts/appcast#{version.major}.php"
+    strategy :sparkle
+  end
+
+  auto_updates true
+  depends_on macos: ">= :mojave"
 
   app "FastScripts.app"
+
+  zap trash: [
+    "~/Library/Application Support/FastScripts",
+    "~/Library/Application Support/FastScripts Script Runner",
+    "~/Library/Caches/com.red-sweater.fastscripts#{version.major}",
+    "~/Library/Preferences/com.red-sweater.fastscripts#{version.major}.plist",
+    "~/Library/WebKit/com.red-sweater.fastscripts#{version.major}",
+  ]
 end

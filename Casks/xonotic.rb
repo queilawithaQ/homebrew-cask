@@ -4,7 +4,13 @@ cask "xonotic" do
 
   url "https://dl.xonotic.org/xonotic-#{version}.zip"
   name "Xonotic"
+  desc "Arena-style first person shooter"
   homepage "https://www.xonotic.org/"
+
+  livecheck do
+    url "https://www.xonotic.org/download/"
+    regex(%r{href=.*?/xonotic[._-]v?(\d+(?:\.\d+)+)\.zip}i)
+  end
 
   suite "Xonotic"
 end

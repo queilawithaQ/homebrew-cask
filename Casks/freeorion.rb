@@ -1,12 +1,23 @@
 cask "freeorion" do
-  version "0.4.10.1,2020-09-25.39cfe10"
-  sha256 "ca31a2a35878df0059589cf88f50cd1168d5f493b8ccbcaece88ae3a2e5331a7"
+  version "0.4.10.2,2021-08-01,f663dad"
+  sha256 "d86d019ba80662f868a2d79bad378957234b79d50feaf351b2181da1d5e52c26"
 
-  # github.com/freeorion/ was verified as official when first introduced to the cask
-  url "https://github.com/freeorion/freeorion/releases/download/v#{version.before_comma}/FreeOrion_v#{version.before_comma}_#{version.after_comma}_MacOSX_10.9.dmg"
-  appcast "https://github.com/freeorion/freeorion/releases.atom"
+  url "https://github.com/freeorion/freeorion/releases/download/v#{version.csv.first}/FreeOrion_v#{version.csv.first}_#{version.csv.second}.#{version.csv.third}_MacOSX_10.9.dmg",
+      verified: "github.com/freeorion/"
   name "FreeOrion"
+  desc "Turn-based space empire and galactic conquest game"
   homepage "https://freeorion.org/"
+
+  livecheck do
+    url "https://github.com/freeorion/freeorion/releases/latest"
+    regex(%r{href=.*?/FreeOrion_v?(\d+(?:\.\d+)*)_(\d+(?:-\d+)*)\.([0-9a-f]+)_MacOSX_(?:\d+(?:\.\d+)*)\.dmg}i)
+    strategy :page_match do |page, regex|
+      match = page.match(regex)
+      next if match.blank?
+
+      "#{match[1]},#{match[2]},#{match[3]}"
+    end
+  end
 
   app "FreeOrion.app"
 end

@@ -1,19 +1,29 @@
 cask "mkvtoolnix" do
-  version "51.0.0"
-  sha256 "dad65b051a56184512729b36a662f14909763676794cb879f51aa33ba27c0909"
+  version "63.0.0"
+  sha256 "2c09244106649a944503fac5cab760bd9f31120c92f9d7de78d4d6b143524f01"
 
   url "https://mkvtoolnix.download/macos/MKVToolNix-#{version}.dmg"
-  appcast "https://mkvtoolnix.download/macos/"
   name "MKVToolNix"
   desc "Set of tools to create, alter and inspect Matroska files (MKV)"
   homepage "https://mkvtoolnix.download/"
 
-  conflicts_with formula: "mkvtoolnix"
-  depends_on macos: ">= :mojave"
+  livecheck do
+    url "https://mkvtoolnix.download/macos/"
+    strategy :page_match
+    regex(%r{href=.*?/MKVToolNix-(\d+(?:\.\d+)*)\.dmg}i)
+  end
 
-  app "MKVToolNix-#{version.major_minor_patch}.app"
-  binary "#{appdir}/MKVToolNix-#{version.major_minor_patch}.app/Contents/MacOS/mkvextract"
-  binary "#{appdir}/MKVToolNix-#{version.major_minor_patch}.app/Contents/MacOS/mkvinfo"
-  binary "#{appdir}/MKVToolNix-#{version.major_minor_patch}.app/Contents/MacOS/mkvmerge"
-  binary "#{appdir}/MKVToolNix-#{version.major_minor_patch}.app/Contents/MacOS/mkvpropedit"
+  conflicts_with formula: "mkvtoolnix"
+  depends_on macos: ">= :catalina"
+
+  app "MKVToolNix-#{version}.app"
+  binary "#{appdir}/MKVToolNix-#{version}.app/Contents/MacOS/mkvextract"
+  binary "#{appdir}/MKVToolNix-#{version}.app/Contents/MacOS/mkvinfo"
+  binary "#{appdir}/MKVToolNix-#{version}.app/Contents/MacOS/mkvmerge"
+  binary "#{appdir}/MKVToolNix-#{version}.app/Contents/MacOS/mkvpropedit"
+
+  zap trash: [
+    "~/Library/Preferences/bunkus.org/mkvtoolnix-gui",
+    "~/Library/Saved Application State/download.mkvtoolnix.MKVToolNix.savedState",
+  ]
 end

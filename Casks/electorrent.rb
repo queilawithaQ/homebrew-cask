@@ -1,11 +1,13 @@
 cask "electorrent" do
-  version "2.7.1"
-  sha256 "e254a87fd5ef2d4df0e57f3b4fc4cc9390ca1b1b7f9d5cae66a39206428e0786"
+  version "2.7.3"
+  sha256 "965e305abbd2064c0b4419797a93b7d379eca7182430dd662891bb9737a778fc"
 
-  url "https://github.com/Tympanix/Electorrent/releases/download/v#{version}/electorrent-#{version}.dmg"
-  appcast "https://github.com/Tympanix/Electorrent/releases.atom"
+  url "https://github.com/tympanix/Electorrent/releases/download/v#{version}/electorrent-#{version}.dmg"
   name "Electorrent"
-  homepage "https://github.com/Tympanix/Electorrent"
+  desc "Desktop remote torrenting application"
+  homepage "https://github.com/tympanix/Electorrent"
+
+  auto_updates true
 
   app "Electorrent.app"
 end

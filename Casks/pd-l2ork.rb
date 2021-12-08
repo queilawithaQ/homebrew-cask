@@ -1,14 +1,23 @@
 cask "pd-l2ork" do
-  version "2.15.2"
-  sha256 "f120b2e6f161db0f4022b8dac16247b30bdcaea5088ba0e00b014d5d9a2d457e"
+  version "2.17.0,20210417,ca592f6f"
+  sha256 "c890f169663d9cdf947baaa2ce9cf0d48fcd07cb71368b7eab29547b237dab39"
 
-  # github.com/agraef/purr-data/ was verified as official when first introduced to the cask
-  url "https://github.com/agraef/purr-data/releases/download/#{version}/osx_10.11-x86_64-dmg.zip"
-  appcast "https://github.com/agraef/purr-data/releases.atom"
+  url "https://github.com/agraef/purr-data/releases/download/#{version.csv.first}/Pd-l2ork-OSX10.11-#{version.csv.first}-#{version.csv.second}-rev.#{version.csv.third}-x86_64.dmg",
+      verified: "github.com/agraef/purr-data/"
   name "Pd-l2ork"
   name "Purr Data"
-  desc "Purr Data - Jonathan Wilkes' cross-platform Pd-l2ork version"
+  desc "Programming environment for computer music and multimedia applications"
   homepage "https://agraef.github.io/purr-data/"
+
+  livecheck do
+    url :url
+    strategy :github_latest do |page|
+      match = page.match(%r{href=.*?/v?(\d+(?:\.\d+)+)/Pd-l2ork-OSX10\.11-\1-(\d+)-rev\.(\h+)-x86_64\.dmg}i)
+      next if match.blank?
+
+      "#{match[1]},#{match[2]},#{match[3]}"
+    end
+  end
 
   app "Pd-l2ork.app"
   binary "#{appdir}/Pd-l2ork.app/Contents/Resources/app.nw/pd-l2ork"

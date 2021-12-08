@@ -1,13 +1,18 @@
 cask "bonitastudiocommunity" do
-  version "7.11.2"
-  sha256 "449ca311558975e74aca67a5a3b25304a7c355dafe4b0887627fa97cffcf3e5d"
+  version "2021.2-u0"
+  sha256 "28a753a453e4085a706b23b5cf323f7bdd39d073a2974ecbd57e58e3c5d06016"
 
-  # github.com/bonitasoft/bonita-platform-releases was verified as official when first introduced to the cask
-  url "https://github.com/bonitasoft/bonita-platform-releases/releases/download/#{version}/BonitaStudioCommunity-#{version}-x86_64.dmg"
-  appcast "https://www.bonitasoft.com/downloads",
-          must_contain: version.major_minor
+  url "https://github.com/bonitasoft/bonita-platform-releases/releases/download/#{version}/BonitaStudioCommunity-#{version}-x86_64.dmg",
+      verified: "github.com/bonitasoft/bonita-platform-releases/"
   name "Bonita Studio Community Edition"
+  desc "Business process automation and optimization"
   homepage "https://www.bonitasoft.com/downloads"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+    regex(%r{href=.*?/tag/v?(\d+(?:\.\d+)+(?:[a-z\d_-]+))["' >]}i)
+  end
 
   installer script: {
     executable: "#{staged_path}/BonitaStudioCommunity-#{version}.app/Contents/MacOS/installbuilder.sh",

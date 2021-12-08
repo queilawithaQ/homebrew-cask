@@ -1,18 +1,24 @@
 cask "adobe-dng-converter" do
-  version "13.0"
-  sha256 "72c5692e94c4cd2f0f10d2c4ccc0c4dda82578f0fec1c67956458844f95fe78d"
+  version "14.0"
+  sha256 "200abde368a9eb70c766eff1ac567a401914c99c89b7200a246f3cbaa69fe994"
 
   url "https://download.adobe.com/pub/adobe/dng/mac/DNGConverter_#{version.dots_to_underscores}.dmg"
-  appcast "https://supportdownloads.adobe.com/product.jsp?product=106&platform=Macintosh"
-  name "Adobe Camera Raw and DNG Converter"
+  name "Adobe DNG Converter"
   desc "DNG file converter"
-  homepage "https://supportdownloads.adobe.com/product.jsp?product=106&platform=Macintosh"
+  homepage "https://helpx.adobe.com/photoshop/using/adobe-dng-converter.html"
+
+  livecheck do
+    url "https://helpx.adobe.com/in/photoshop/kb/uptodate.html"
+    regex(%r{The current version of Adobe DNG Converter is <b>(\d+(?:\.\d+)+)</b>}i)
+  end
+
+  depends_on macos: ">= :mojave"
 
   pkg "DNGConverter_#{version.dots_to_underscores}.pkg"
 
-  uninstall pkgutil: [
-    "com.adobe.CameraRawProfiles",
-    "com.adobe.DNGConverter",
-  ],
-            quit:    "com.adobe.DNGConverter"
+  uninstall quit:    "com.adobe.DNGConverter",
+            pkgutil: [
+              "com.adobe.CameraRawProfiles",
+              "com.adobe.DNGConverter",
+            ]
 end

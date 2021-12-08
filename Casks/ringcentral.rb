@@ -1,12 +1,16 @@
 cask "ringcentral" do
-  version "20.4.10"
-  sha256 "7a346f13059a98082f06ee75aca0a3a64c0fdf96b639d5d4f555596e0dcb9728"
+  version "21.4.25"
+  sha256 :no_check
 
   url "https://app.ringcentral.com/downloads/RingCentral.pkg"
-  appcast "https://app.ringcentral.com/download/latest-mac.yml",
-          must_contain: version.major_minor_patch
   name "RingCentral"
-  homepage "https://www.ringcentral.com/rcapp.html"
+  desc "Team messaging, video meetings, and a business phone"
+  homepage "https://www.ringcentral.com/download.html"
+
+  livecheck do
+    url "https://app.ringcentral.com/download/latest-mac.yml"
+    strategy :electron_builder
+  end
 
   pkg "RingCentral.pkg"
 

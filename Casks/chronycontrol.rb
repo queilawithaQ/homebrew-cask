@@ -1,11 +1,16 @@
 cask "chronycontrol" do
-  version "1.4.0"
-  sha256 "6a82467ea3505f1fa223d672cb5f59b7a4c50507a89d83fb2a6dd00380a77866"
+  version "1.4.4,275"
+  sha256 "b80d0f32f645e555bd55728a7c3d9aed8a96eeb36b758e2e9c6eac55cb83ccd1"
 
-  url "https://www.whatroute.net/software/chronycontrol-#{version}.zip"
-  appcast "https://www.whatroute.net/chronycontrolappcast.xml"
+  url "https://www.whatroute.net/software/chronycontrol-#{version.before_comma}.zip"
   name "ChronyControl"
+  desc "Install and configure chronyd"
   homepage "https://whatroute.net/chronycontrol.html"
+
+  livecheck do
+    url "https://www.whatroute.net/chronycontrolappcast.xml"
+    strategy :sparkle
+  end
 
   app "ChronyControl.app"
 

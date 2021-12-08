@@ -1,13 +1,17 @@
 cask "onedrive" do
-  version "20.143.0716.0003"
-  sha256 "2281caba9c0ac8a01e4bbe07845c7fdb3ea911b8c02176f62c21b7045684c6aa"
+  version "21.220.1024.0005"
+  sha256 "498e779d2ea2e4312b20306121c1d243e13af004b23417c03933c1c6335aa64b"
 
-  # oneclient.sfx.ms/Mac/Direct/ was verified as official when first introduced to the cask
-  url "https://oneclient.sfx.ms/Mac/Direct/#{version}/OneDrive.pkg"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://go.microsoft.com/fwlink/?linkid=823060"
+  url "https://oneclient.sfx.ms/Mac/Direct/#{version}/OneDrive.pkg",
+      verified: "oneclient.sfx.ms/Mac/Direct/"
   name "OneDrive"
   desc "Cloud storage client"
   homepage "https://onedrive.live.com/"
+
+  livecheck do
+    url "https://go.microsoft.com/fwlink/?linkid=823060"
+    strategy :header_match
+  end
 
   auto_updates true
   conflicts_with cask: "microsoft-office"
@@ -35,6 +39,7 @@ cask "onedrive" do
     "~/Library/Application Support/OneDriveUpdater",
     "~/Library/Application Scripts/com.microsoft.OneDrive.FinderSync",
     "~/Library/Application Scripts/com.microsoft.OneDriveLauncher",
+    "~/Library/Application Scripts/com.microsoft.OneDrive-mac",
     "~/Library/Caches/com.microsoft.OneDrive",
     "~/Library/Caches/com.microsoft.OneDriveUpdater",
     "~/Library/Caches/com.plausiblelabs.crashreporter.data/com.microsoft.OneDrive",
@@ -44,6 +49,8 @@ cask "onedrive" do
     "~/Library/Cookies/com.microsoft.OneDrive.binarycookies",
     "~/Library/Cookies/com.microsoft.OneDriveUpdater.binarycookies",
     "~/Library/Group Containers/*.OneDriveStandaloneSuite",
+    "~/Library/Group Containers/*.OneDriveSyncClientSuite",
+    "~/Library/Group Containers/*.OfficeOneDriveSyncIntegration",
     "~/Library/Logs/OneDrive",
     "~/Library/Preferences/com.microsoft.OneDrive.plist",
     "~/Library/Preferences/com.microsoft.OneDriveUpdater.plist",

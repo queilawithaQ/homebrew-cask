@@ -1,15 +1,36 @@
 cask "frhelper" do
-  version "3.9.10,2020-08-21"
-  sha256 "42a4f6a89c3491be96d5bc883f92f0dcac949cf4b4b0ad63117faf7c071a16e9"
+  version "4.1.5,1065"
+  sha256 "b98002603091c30ff682b281a2e53a285f883e8bfc6648c1d28ffb6ea6740218"
 
-  # static.frdic.com/ was verified as official when first introduced to the cask
   url "https://static.frdic.com/pkg/fhmac.dmg?v=#{version.after_comma}",
+      verified:   "static.frdic.com/",
       user_agent: :fake
-  appcast "https://www.eudic.net/v4/fr/app/download",
-          must_contain: version.after_comma
   name "Frhelper"
   name "法语助手"
+  desc "French-Chinese dictionary and learning tool"
   homepage "https://www.eudic.net/v4/fr/app/frhelper"
 
+  livecheck do
+    url "https://www.eudic.net/update/frhelper_mac.xml"
+    strategy :sparkle
+  end
+
   app "Frhelper.app"
+
+  uninstall quit: [
+    "com.eusoft.frhelper",
+    "com.eusoft.frhelper.LightPeek",
+    "com.eusoft.frhelper.QuickLook",
+  ]
+
+  zap trash: [
+    "~/Library/Application Support/com.eusoft.frhelper",
+    "~/Library/Caches/com.eusoft.frhelper",
+    "~/Library/Caches/com.eusoft.frhelper.LightPeek",
+    "~/Library/Containers/com.eusoft.frhelper.QuickLook",
+    "~/Library/Eudb_fr",
+    "~/Library/Preferences/com.eusoft.frhelper.LightPeek.plist",
+    "~/Library/Preferences/com.eusoft.frhelper.plist",
+    "~/Library/Preferences/group.com.eusoft.frhelper.plist",
+  ]
 end

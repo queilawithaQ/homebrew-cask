@@ -1,12 +1,16 @@
 cask "spires" do
-  version "1.9.6"
-  sha256 "a645337b610892a45756b0def374c4350881801a894b580d33d6dce1836a0865"
+  version "2.0.6.1"
+  sha256 "fe79884c70f30e16b62732a66494617ac55d74cce11ae19edb2d6f8051dd2b07"
 
   url "https://member.ipmu.jp/yuji.tachikawa/spires/zips/spires_#{version}.zip"
-  appcast "https://member.ipmu.jp/yuji.tachikawa/spires/spires-Update.xml"
   name "spires"
   desc "Frontend for inspire-hep and arxiv"
   homepage "https://member.ipmu.jp/yuji.tachikawa/spires/"
+
+  livecheck do
+    url "https://member.ipmu.jp/yuji.tachikawa/spires/spires-Update.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
   depends_on macos: ">= :el_capitan"

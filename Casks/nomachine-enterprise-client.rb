@@ -1,11 +1,16 @@
 cask "nomachine-enterprise-client" do
-  version "6.12.3_8"
-  sha256 "ef8ba9d97652799128cb0ba409508a8984fa15fbe72c3236ad3d3d6501267851"
+  version "7.7.4_1"
+  sha256 "058dba4eb82c389f09a94ffa273e6c80fcdcf96290c18f58824e6a677990193c"
 
   url "https://download.nomachine.com/download/#{version.major_minor}/MacOSX/nomachine-enterprise-client_#{version}.dmg"
-  appcast "https://www.nomachine.com/download/download&id=15"
   name "NoMachine Enterprise Client"
+  desc "Remote desktop software"
   homepage "https://www.nomachine.com/"
+
+  livecheck do
+    url "https://www.nomachine.com/download/download&id=15"
+    regex(/nomachine-enterprise-client[._-]v?(\d+(?:\.\d+)*_\d+)\.dmg/i)
+  end
 
   pkg "NoMachine.pkg"
 

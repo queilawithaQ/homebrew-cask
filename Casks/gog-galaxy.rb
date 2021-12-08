@@ -1,12 +1,16 @@
 cask "gog-galaxy" do
-  version "2.0.23.3"
-  sha256 "854d46793e487f62b610bbb680311461ca6a4e858c035fe8b41447bd745b9206"
+  version "2.0.43.66a"
+  sha256 "349e9c0e8fc3c3ac582c1ac2d43066bcfb7eeac9362d0baf3ed05e7dc5aa49d5"
 
-  url "https://cdn.gog.com/open/galaxy/client/galaxy_client_#{version}.pkg"
-  appcast "https://www.macupdater.net/cgi-bin/extract_text/extract_text_split_easy.cgi?url=https://gog.com/galaxy&encoding=utf-8&user_agent=Macintosh"
-  name "GOG Galaxy Client"
-  desc "GOG gaming client"
+  url "https://cdn.gog.com/open/galaxy/client/#{version.chomp("a")}/galaxy_client_#{version}.pkg"
+  name "GOG Galaxy"
+  desc "Game client"
   homepage "https://www.gog.com/galaxy"
+
+  livecheck do
+    url :homepage
+    regex(%r{href=.*?/galaxy_client_(\d+(?:\.\d+)*a?)\.pkg}i)
+  end
 
   auto_updates true
 
@@ -14,9 +18,9 @@ cask "gog-galaxy" do
 
   uninstall delete:    "/Applications/GOG Galaxy.app",
             launchctl: [
+              "com.gog.galaxy.autoLauncher",
               "com.gog.galaxy.ClientService",
               "com.gog.galaxy.commservice",
-              "com.gog.galaxy.autoLauncher",
             ]
 
   zap trash: [

@@ -1,13 +1,18 @@
 cask "rotato" do
-  version "110.1603196537"
-  sha256 "58eb0490d004c3baf2cd18fd3aaf5df46370800146c38b9ae52760e83d7f89f5"
+  version "112,1604697138"
+  sha256 "4d68cbb8832e23d306f34123a65de3788c70e3f6eb49c055136febc8f864405c"
 
-  # dl.devmate.com/com.mortenjust.Rendermock/ was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/com.mortenjust.Rendermock/#{version.major}/#{version.minor}/DesignCamera-#{version.major}.zip"
-  appcast "https://updates.devmate.com/com.mortenjust.Rendermock.xml",
-          must_contain: "#{version.major}/#{version.minor}"
+  url "https://dl.devmate.com/com.mortenjust.Rendermock/#{version.before_comma}/#{version.after_comma}/DesignCamera-#{version.before_comma}.zip",
+      verified: "dl.devmate.com/com.mortenjust.Rendermock/"
   name "Rotato"
   homepage "https://rotato.xyz/"
+
+  livecheck do
+    url "https://updates.devmate.com/com.mortenjust.Rendermock.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version},#{item.url[%r{/(\d+)/DesignCamera-\d+\.zip}i, 1]}"
+    end
+  end
 
   depends_on macos: ">= :high_sierra"
 

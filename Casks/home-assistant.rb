@@ -1,13 +1,25 @@
 cask "home-assistant" do
-  version "2020.7,8"
-  sha256 "c94b4deb6dc013d43b4901f4d7ed40ce6a47e3fe544ed658d0a704775aa88ff2"
+  version "2021.11.1,2021.266"
+  sha256 "fa285482b0ed54b63003ebae10be24631a71a7c5af52a5d2f2007641db6cf4e3"
 
-  # github.com/home-assistant/iOS/ was verified as official when first introduced to the cask
-  url "https://github.com/home-assistant/iOS/releases/download/release%2F#{version.before_comma}%2F#{version.after_comma}/home-assistant-mac.zip"
-  appcast "https://github.com/home-assistant/iOS/releases.atom"
+  url "https://github.com/home-assistant/iOS/releases/download/release%2F#{version.before_comma}%2F#{version.after_comma}/home-assistant-mac.zip",
+      verified: "github.com/home-assistant/iOS/"
   name "Home Assistant"
   desc "Companion app for Home Assistant home automation software"
   homepage "https://companion.home-assistant.io/"
+
+  # We use the GitHubLatest strategy as Home Assistant also tags pre-releases, and
+  # we also specify a regex since tags are unconventional, e.g. `2021.2.2/2021.55`,
+  # and use a custom block to replace the slash with a comma in the resulting version
+  livecheck do
+    url :url
+    strategy :github_latest do |page|
+      version = page.match(%r{href=".+/tree/(?:mac|release)/([\d.]+)/([\d.]+)"}i)
+      next if version.blank?
+
+      "#{version[1]},#{version[2]}"
+    end
+  end
 
   depends_on macos: ">= :catalina"
 

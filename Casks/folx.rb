@@ -1,13 +1,16 @@
 cask "folx" do
-  version "5.22.13962"
-  sha256 "5fdc9fb2bccbb9369fdcdc4d7f7599e567f2a1100f5f78e93c0339c72ee121fa"
+  version "5.26,13983"
+  sha256 :no_check
 
   url "https://cdn.eltima.com/download/downloader_mac.dmg"
-  appcast "https://cdn.eltima.com/download/folx-updater/folx.xml",
-          must_contain: version.major_minor
   name "Folx"
   desc "Download manager with a torrent client"
   homepage "https://mac.eltima.com/download-manager.html"
+
+  livecheck do
+    url "https://cdn.eltima.com/download/folx-updater/folx.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 

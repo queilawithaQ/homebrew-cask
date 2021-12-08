@@ -1,12 +1,17 @@
 cask "syncroom" do
-  version "1.0.2"
-  sha256 "1713e61d222801f77c178c746ee9b1e65f0df92bf6e69055b7035ea8ce806cb2"
+  version "1.1.0"
+  sha256 "867afd64937ef81b8546c30c5264c1262f5c08930b4e804ba3d5d7a4abb1b377"
 
   url "https://syncroom.yamaha.com/play/dl/app/SYNCROOM-JP-mac-#{version}.zip"
-  appcast "https://syncroom.yamaha.com/play/dl/"
   name "SYNCROOM"
   desc "Online remote concert service: enjoy playing even if far away from each other"
   homepage "https://syncroom.yamaha.com/"
+
+  livecheck do
+    url "https://syncroom.yamaha.com/play/dl/"
+    strategy :page_match
+    regex(%r{href=.*?/SYNCROOM-JP-mac-(\d+(?:\.\d+)*)\.zip}i)
+  end
 
   depends_on macos: ">= :mojave"
 

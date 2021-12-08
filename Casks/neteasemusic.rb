@@ -1,15 +1,27 @@
 cask "neteasemusic" do
-  version "2.3.2_832,680685466.242a.20191112165731"
-  sha256 "52977697538bd24df242e3120e4644aaeab951a07ecb081da62a07b9f6846a62"
+  version "2.3.7,868"
+  sha256 "a2cd470cdecadc5fc45e5bf8fc7e2778fd3b7e2719c7cd0eae1fadb6a4e20318"
 
-  # d1.music.126.net/ was verified as official when first introduced to the cask
-  url "https://d1.music.126.net/dmusic/obj/w5zCg8OCw6fCn2vDicOl/#{version.after_comma.major}/#{version.after_comma.minor}/#{version.after_comma.patch}/NeteaseMusic_#{version.before_comma}_web.dmg",
+  url "https://d1.music.126.net/dmusic/NeteaseMusic_#{version.before_comma}_#{version.after_comma}_web.dmg",
+      verified:   "d1.music.126.net/",
       user_agent: :fake
-  appcast "https://music.163.com/api/mac/appcast.xml"
   name "NetEase cloud music"
   name "网易云音乐"
   desc "Music streaming platform"
   homepage "https://music.163.com/"
+
+  # The Sparkle feed uses non-English pubDates, which are not parsed correctly
+  # by the `:sparkle` strategy. As a workaround, the version is just extracted
+  # from the XML using a regex pattern on the download URLs.
+  livecheck do
+    url "https://music.163.com/api/osx/download/latest"
+    strategy :header_match do |headers|
+      match = headers["location"].match(%r{/NeteaseMusic_(\d+(?:\.\d+)+)_(\d+)_web\.dmg}i)
+      next if match.blank?
+
+      "#{match[1]},#{match[2]}"
+    end
+  end
 
   depends_on macos: ">= :sierra"
 
@@ -18,6 +30,7 @@ cask "neteasemusic" do
   uninstall quit: "com.netease.163music"
 
   zap trash: [
+    "~/Library/Application Support/com.netease.163music",
     "~/Library/Caches/com.netease.163music",
     "~/Library/Containers/com.netease.163music",
     "~/Library/Cookies/com.netease.163music.binarycookies",

@@ -1,15 +1,23 @@
 cask "unity" do
-  version "2020.1.9f1,145f5172610f"
-  sha256 "5dd076f370a0dc42d28c4daab2e8a6da5c4f6d2c596fe07124fdf11997561bff"
+  version "2021.2.5f1,4ec9a5e799f5"
+  sha256 "584c59fac757546a13cc24a80894a5fa206295ae7ba00c5cc9864848d3e43de1"
 
-  # download.unity3d.com/download_unity/ was verified as official when first introduced to the cask
-  url "https://download.unity3d.com/download_unity/#{version.after_comma}/MacEditorInstaller/Unity-#{version.before_comma}.pkg"
-  appcast "https://public-cdn.cloud.unity3d.com/hub/prod/releases-darwin.json"
+  url "https://download.unity3d.com/download_unity/#{version.csv.second}/MacEditorInstaller/Unity-#{version.csv.first}.pkg",
+      verified: "download.unity3d.com/download_unity/"
   name "Unity Editor"
   desc "Platform for 3D content"
   homepage "https://unity.com/products"
 
-  pkg "Unity-#{version.before_comma}.pkg"
+  livecheck do
+    url "https://public-cdn.cloud.unity3d.com/hub/prod/releases-darwin.json"
+    strategy :page_match do |page|
+      page.scan(%r{/download_unity/(\h+)/MacEditorInstaller/Unity-(\d+(?:\.\d+)+[a-z]*\d*)\.pkg}i).map do |match|
+        "#{match[1]},#{match[0]}"
+      end
+    end
+  end
+
+  pkg "Unity-#{version.csv.first}.pkg"
 
   uninstall quit:    "com.unity3d.UnityEditor5.x",
             pkgutil: "com.unity3d.UnityEditor5.x",

@@ -1,9 +1,8 @@
 cask "kubecontext" do
-  version "1.23"
-  sha256 "262d0e2c2843c0e0220b557e02091d06c64e403b5ff09f09351f6e81841c8ac5"
+  version "2.0.1"
+  sha256 "9b815995123dcf8a6e90c65600db68fdb38d1e9e362695922b2ec2aad7d74fc2"
 
   url "https://github.com/turkenh/KubeContext/releases/download/v#{version}/KubeContext.zip"
-  appcast "https://github.com/turkenh/KubeContext/releases.atom"
   name "KubeContext"
   desc "Menu bar app for managing Kubernetes contexts"
   homepage "https://github.com/turkenh/KubeContext"

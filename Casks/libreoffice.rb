@@ -1,16 +1,29 @@
 cask "libreoffice" do
-  version "7.0.2"
-  sha256 "d41e29500517e7a85c1ca4f49508c7b235d0abb05721ba55185b8048b56258be"
+  arch = Hardware::CPU.intel? ? "x86-64" : "aarch64"
+  folder = Hardware::CPU.intel? ? "x86_64" : "aarch64"
 
-  # documentfoundation.org/ was verified as official when first introduced to the cask
-  url "https://download.documentfoundation.org/libreoffice/stable/#{version}/mac/x86_64/LibreOffice_#{version}_MacOS_x86-64.dmg"
-  appcast "https://download.documentfoundation.org/libreoffice/stable/"
+  version "7.2.4"
+
+  if Hardware::CPU.intel?
+    sha256 "825c5a74a97cc9daa3ca993c6d24c36db3dea2aa65bfe7b5e1a371c3adcfbcf5"
+  else
+    sha256 "97a6e45372c3c7ad84b39232d7bec09dd5d9e022e25ff94cb1b28bef37cad2be"
+  end
+
+  url "https://download.documentfoundation.org/libreoffice/stable/#{version}/mac/#{folder}/LibreOffice_#{version}_MacOS_#{arch}.dmg",
+      verified: "download.documentfoundation.org/libreoffice/stable/"
   name "LibreOffice"
-  desc "Free cross-platform office suite"
+  desc "Office suite"
   homepage "https://www.libreoffice.org/"
 
+  livecheck do
+    url "https://download.documentfoundation.org/libreoffice/stable/"
+    strategy :page_match
+    regex(%r{href="(\d+(?:\.\d+)+)/"}i)
+  end
+
   conflicts_with cask: "homebrew/cask-versions/libreoffice-still"
-  depends_on macos: ">= :sierra"
+  depends_on macos: ">= :yosemite"
 
   app "LibreOffice.app"
   binary "#{appdir}/LibreOffice.app/Contents/MacOS/gengal"
@@ -28,15 +41,15 @@ cask "libreoffice" do
   binary shimscript, target: "soffice"
 
   preflight do
-    IO.write shimscript, <<~EOS
+    File.write shimscript, <<~EOS
       #!/bin/sh
       '#{appdir}/LibreOffice.app/Contents/MacOS/soffice' "$@"
     EOS
   end
 
   zap trash: [
-    "~/Library/Application Support/LibreOffice",
     "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/org.libreoffice.script.sfl*",
+    "~/Library/Application Support/LibreOffice",
     "~/Library/Preferences/org.libreoffice.script.plist",
     "~/Library/Saved Application State/org.libreoffice.script.savedState",
   ]

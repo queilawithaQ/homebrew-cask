@@ -1,10 +1,18 @@
 cask "plain-clip" do
-  version :latest
+  version "2.5.2"
   sha256 :no_check
 
-  url "https://www.bluem.net/files/Plain-Clip.dmg"
+  url "https://www.bluem.net/files/plain-clip.zip"
   name "Plain Clip"
+  desc "Removes formatting from copied text"
   homepage "https://www.bluem.net/en/mac/plain-clip/"
 
-  app "Plain Clip.app"
+  livecheck do
+    url :url
+    strategy :extract_plist
+  end
+
+  app "Plain Clip/Plain Clip.app"
+
+  zap trash: "~/Library/Preferences/net.bluem.plain-clip.plist"
 end

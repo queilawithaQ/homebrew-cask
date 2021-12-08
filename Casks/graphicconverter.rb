@@ -1,13 +1,17 @@
 cask "graphicconverter" do
-  version "11.3,4587"
-  sha256 "950e0f7a1464317ed3a6be6ff8564ff502ecfdd1af03d3d8336dff5a6f0e2a6a"
+  version "11.5.4,5261"
+  sha256 "ce0e23d2c3145aea20a7ed596290539691898b04ffe5a9e451720077d7677dea"
 
-  # lemkesoft.info/ was verified as official when first introduced to the cask
-  url "https://www.lemkesoft.info/files/graphicconverter/gc#{version.major}_build#{version.after_comma}.zip"
-  appcast "https://www.lemkesoft.info/sparkle/graphicconverter/graphicconverter#{version.major}.xml"
+  url "https://www.lemkesoft.info/files/graphicconverter/gc#{version.major}_build#{version.after_comma}.zip",
+      verified: "lemkesoft.info/"
   name "GraphicConverter"
   desc "For browsing, enhancing and converting images"
   homepage "https://www.lemkesoft.de/en/products/graphicconverter/"
+
+  livecheck do
+    url "https://www.lemkesoft.info/sparkle/graphicconverter/graphicconverter#{version.major}.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
@@ -16,7 +20,7 @@ cask "graphicconverter" do
   zap trash: [
     "/Users/Shared/Library/Application Support/GraphicConverter",
     "~/Library/Application Support/GraphicConverter",
-    "~/Library/Group Containers/*.com.lemkesoft.graphicconverter*.group",
     "~/Library/Caches/com.lemkesoft.graphicconverter*",
+    "~/Library/Group Containers/*.com.lemkesoft.graphicconverter*.group",
   ]
 end

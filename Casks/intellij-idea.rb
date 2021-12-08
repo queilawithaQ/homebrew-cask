@@ -1,13 +1,30 @@
 cask "intellij-idea" do
-  version "2020.2.3"
-  sha256 "b9bc12ca7eab86fb776914ab9cc62ee4a60c5b38f3b130b3a78ae8079e3ed516"
+  arch = Hardware::CPU.intel? ? "" : "-aarch64"
 
-  url "https://download.jetbrains.com/idea/ideaIU-#{version}.dmg"
-  appcast "https://data.services.jetbrains.com/products/releases?code=IIU&latest=true&type=release"
+  version "2021.3,213.5744.223"
+
+  url "https://download.jetbrains.com/idea/ideaIU-#{version.before_comma}#{arch}.dmg"
+  if Hardware::CPU.intel?
+    sha256 "463e861c5357bef19f498f4bffa06f7e912d59f7a795eda2c603b02d4d737de0"
+  else
+    sha256 "9f9186b9a9ac97c656fb3f40fd0880e0d84957e66e19e72a20d6f15d2cd92b41"
+  end
+
   name "IntelliJ IDEA Ultimate"
+  desc "Java IDE by JetBrains"
   homepage "https://www.jetbrains.com/idea/"
 
+  livecheck do
+    url "https://data.services.jetbrains.com/products/releases?code=IIU&latest=true&type=release"
+    strategy :page_match do |page|
+      JSON.parse(page)["IIU"].map do |release|
+        "#{release["version"]},#{release["build"]}"
+      end
+    end
+  end
+
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
   app "IntelliJ IDEA.app"
 
@@ -21,11 +38,12 @@ cask "intellij-idea" do
   end
 
   zap trash: [
+    "~/Library/Application Support/JetBrains/IntelliJIdea#{version.major_minor}",
+    "~/Library/Caches/JetBrains/IntelliJIdea#{version.major_minor}",
+    "~/Library/Logs/JetBrains/IntelliJIdea#{version.major_minor}",
     "~/Library/Preferences/com.jetbrains.intellij.plist",
-    "~/Library/Caches/IntelliJIdea#{version.major_minor}",
-    "~/Library/Logs/IntelliJIdea#{version.major_minor}",
-    "~/Library/Application Support/IntelliJIdea#{version.major_minor}",
     "~/Library/Preferences/IntelliJIdea#{version.major_minor}",
+    "~/Library/Preferences/jetbrains.idea.*.plist",
     "~/Library/Saved Application State/com.jetbrains.intellij.savedState",
   ]
 end

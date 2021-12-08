@@ -1,11 +1,23 @@
 cask "hubstaff" do
-  version "1.5.15,2652"
-  sha256 "abea6948da97884d2f9890ffca45a75408d2a750681eae0212f79a202c77b429"
+  version "1.6.2,3675"
+  sha256 "1c0cf7f45b7474551d6347f862f4caa496d2b1cd5059dc5e37fc513117eb5aed"
 
   url "https://app.hubstaff.com/download/#{version.after_comma}-mac-os-x-#{version.before_comma.dots_to_hyphens}-release"
-  appcast "https://app.hubstaff.com/appcast.xml"
   name "Hubstaff"
+  desc "Work time tracker"
   homepage "https://hubstaff.com/"
 
+  livecheck do
+    url "https://app.hubstaff.com/appcast.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version.split("-").first},#{item.url[%r{/(\d+)-mac-os-x-(?:\d(?:-\d+)*)-release}i, 1]}"
+    end
+  end
+
   app "Hubstaff.app"
+
+  zap trash: [
+    "~/Library/Application Support/Hubstaff",
+    "~/Library/Preferences/com.netsoft.Hubstaff.plist",
+  ]
 end

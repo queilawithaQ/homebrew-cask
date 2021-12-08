@@ -1,11 +1,16 @@
 cask "garagesale" do
-  version "8.2"
-  sha256 "ce13d8c96d6d38afcbc517e1d09c0fc926eff3813763f9d3dd90da95b78f9a30"
+  version "8.4"
+  sha256 "ba4c49c05b3f7068f8ad4f175caed62bcf4f245937aff2343fd5a169461f6df5"
 
   url "https://downloads.iwascoding.com/downloads/GarageSale_#{version}.dmg"
-  appcast "https://www.iwascoding.com/GarageSale/Downloads.html#VersionHistory"
   name "GarageSale"
+  desc "Manage eBay Listings"
   homepage "https://www.iwascoding.com/GarageSale/"
+
+  livecheck do
+    url "https://www.iwascoding.com/GarageSale/Downloads.html#VersionHistory"
+    regex(%r{href=.*?/GarageSale_(\d+(?:\.\d+)+)\.dmg}i)
+  end
 
   depends_on macos: ">= :sierra"
 

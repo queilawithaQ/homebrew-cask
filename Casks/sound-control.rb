@@ -1,14 +1,21 @@
 cask "sound-control" do
-  version "2.5.0,5156"
-  sha256 "b8c2d91aa560248eda0938770c232d31b0b87a95872e4c4df2a6a1db7c514cfb"
+  version "2.6.5,5156"
+  sha256 "92a2ae9fd12412674348acf64828acac28b182987b81a33d873798f18d63a5a9"
 
-  # staticz.net/ was verified as official when first introduced to the cask
   url "https://staticz.com/download/#{version.after_comma}/"
-  appcast "http://staticz.net/updates/soundcontrol.rss"
   name "Sound Control"
+  desc "Per-app audio controls"
   homepage "https://staticz.com/soundcontrol/"
 
+  livecheck do
+    url "http://staticz.net/updates/soundcontrol.rss"
+    strategy :sparkle do |item|
+      "#{item.version},#{item.url[%r{/download/(\d+)/}i, 1]}"
+    end
+  end
+
   auto_updates true
+  depends_on macos: ">= :mojave"
 
   app "Sound Control.app"
 
@@ -18,4 +25,19 @@ cask "sound-control" do
     "com.static.soundsiphon.inputagent",
   ],
             quit:      "com.staticz.SoundControl"
+
+  zap trash: [
+    "/Library/Audio/Plug-Ins/HAL/_SoundSiphon.driver",
+    "/Library/LaunchAgents/com.staticz.soundsiphon.inputagent.plist",
+    "/Library/LaunchAgents/com.staticz.soundsiphon.playeragent.plist",
+    "/Library/LaunchDaemons/com.staticz.soundsiphon.bridgedaemon.plist",
+    "/Library/Preferences/Audio/Data/_SoundSiphon.driver",
+    "~/Library/Application Support/com.staticz.SoundControl",
+    "~/Library/Caches/com.staticz.SoundControl",
+    "~/Library/Cookies/com.staticz.SoundControl.binarycookies",
+    "~/Library/Cookies/com.staticz.SoundControl.binarycookies*",
+    "~/Library/HTTPStorages/com.staticz.SoundControl.binarycookies",
+    "~/Library/Preferences/com.staticz.SoundControl.plist",
+    "~/Library/Preferences/com.staticz.soundsiphon.playeragent.plist",
+  ]
 end

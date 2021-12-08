@@ -1,18 +1,22 @@
 cask "sqlpro-studio" do
-  version "2020.85"
-  sha256 "aca65ee4d300c9dd3d22940d14d223663da246297e9e7920da46706fd5de7294"
+  version "2021.102"
+  sha256 "fe3b12d56be518c86f0c4b57b63b545e31a544fda427602be306d3f25ad42da0"
 
-  # d3fwkemdw8spx3.cloudfront.net/studio/ was verified as official when first introduced to the cask
-  url "https://d3fwkemdw8spx3.cloudfront.net/studio/SQLProStudio.#{version}.app.zip"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?user_agent=Macintosh&url=https://www.sqlprostudio.com/download.php"
+  url "https://d3fwkemdw8spx3.cloudfront.net/studio/SQLProStudio.#{version}.app.zip",
+      verified: "d3fwkemdw8spx3.cloudfront.net/studio/"
   name "SQLPro Studio"
   desc "Database management tool"
   homepage "https://www.sqlprostudio.com/"
 
+  livecheck do
+    url "https://www.sqlprostudio.com/download.php"
+    strategy :header_match
+  end
+
   app "SQLPro Studio.app"
 
   zap trash: [
-    "~/Library/Containers/com.hankinsoft.osx.sqlprostudio",
     "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.hankinsoft.osx.sqlprostudio.sfl*",
+    "~/Library/Containers/com.hankinsoft.osx.sqlprostudio",
   ]
 end

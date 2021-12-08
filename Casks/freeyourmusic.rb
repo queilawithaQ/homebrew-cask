@@ -1,12 +1,24 @@
 cask "freeyourmusic" do
-  version "5.6.5"
-  sha256 "88813eeee888a621c6c62434179630ec38820f86cd2be683e7719ce1a307f6fa"
+  version "6.2.0"
+  sha256 "abed76dfa5bde0b9e4da0eec2f478c3e02eefc7be052be1870969b77adc788d6"
 
-  # dzqeytqqx888.cloudfront.net/ was verified as official when first introduced to the cask
-  url "https://dzqeytqqx888.cloudfront.net/FreeYourMusic-#{version}.dmg"
-  appcast "https://stamp-live.s3.amazonaws.com/latest-mac.yml"
-  name "FreeYourMusic⁩"
+  url "https://fym-app-production.s3.nl-ams.scw.cloud/FreeYourMusic-#{version}.dmg",
+      verified: "fym-app-production.s3.nl-ams.scw.cloud/"
+  name "FreeYourMusic"
+  desc "Move playlists, tracks, and albums between music platforms"
   homepage "https://freeyourmusic.com/"
 
+  livecheck do
+    url "https://s3.nl-ams.scw.cloud/fym-app-production/latest-mac.yml"
+    strategy :electron_builder
+  end
+
   app "FreeYourMusic.app"
+
+  zap trash: [
+    "~/Library/Application Support/FreeYourMusic",
+    "~/Library/Logs/FreeYourMusic",
+    "~/Library/Preferences/com.freeyourmusic.app.plist",
+    "~/Library/Saved Application State/com.freeyourmusic.app.savedState",
+  ]
 end

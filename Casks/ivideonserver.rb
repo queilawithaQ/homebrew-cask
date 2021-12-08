@@ -1,12 +1,17 @@
 cask "ivideonserver" do
-  version "3.8.0"
-  sha256 "6e8372627144cef24b8b7425ea123436cd8d1de9277aefb19470cdc822d29109"
+  version "3.10.1"
+  sha256 "b6e8ee4343ab8b61600ee2eaeae4ad3f20d3b6fde0dfb8ddf25ecf747f87a962"
 
-  # updates.iv-cdn.com/ was verified as official when first introduced to the cask
-  url "https://updates.iv-cdn.com/bundles/ivideon_server/#{version}/IvideonServer_#{version}_macosx-x86-64.dmg"
-  appcast "https://www.ivideon.com/downloads/"
+  url "https://updates.iv-cdn.com/bundles/ivideon_server/#{version}/IvideonServer_#{version}_macosx-x86-64.dmg",
+      verified: "updates.iv-cdn.com/"
   name "Ivideon Client"
+  desc "Watch surveillance videos in your browser via your Ivideon account"
   homepage "https://www.ivideon.com/"
+
+  livecheck do
+    url "https://www.ivideon.com/downloads/"
+    regex(%r{href=.*?/IvideonServer[._-]v?(\d+(?:\.\d+)+)[._-]macosx[._-]x86[._-]64\.dmg}i)
+  end
 
   app "IvideonServer.app"
 end

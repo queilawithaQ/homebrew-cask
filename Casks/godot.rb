@@ -1,12 +1,26 @@
 cask "godot" do
-  version "3.2.3"
-  sha256 "196dc7319dc40f9b4ee5626371a4cb6d7227eda3c439023630f314b57a581672"
+  version "3.4"
+  sha256 "f3af37ed0ad844188b9cba6e31decb4605c86fa2a46b65ad6279e8ca5d6eef6e"
 
-  # downloads.tuxfamily.org/godotengine/ was verified as official when first introduced to the cask
-  url "https://downloads.tuxfamily.org/godotengine/#{version}/Godot_v#{version}-stable_osx.64.zip"
-  appcast "https://github.com/godotengine/godot/releases.atom"
+  url "https://downloads.tuxfamily.org/godotengine/#{version}/Godot_v#{version}-stable_osx.universal.zip",
+      verified: "downloads.tuxfamily.org/godotengine/"
   name "Godot Engine"
+  desc "Game development engine"
   homepage "https://godotengine.org/"
 
+  livecheck do
+    url "https://github.com/godotengine/godot"
+    regex(/^v?(\d+(?:\.\d+)+)[._-]stable$/)
+  end
+
   app "Godot.app"
+  binary "#{appdir}/Godot.app/Contents/MacOS/Godot", target: "godot"
+
+  uninstall quit: "org.godotengine.godot"
+
+  zap trash: [
+    "~/Library/Application Support/Godot",
+    "~/Library/Caches/Godot",
+    "~/Library/Saved Application State/org.godotengine.godot.savedState",
+  ]
 end

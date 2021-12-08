@@ -1,12 +1,17 @@
 cask "virtualbox-extension-pack" do
-  version "6.1.16"
-  sha256 "9802482b77b95a954cb5111793da10d009009a4e9a9c4eaa4bd1ae5dafe9db46"
+  version "6.1.30"
+  sha256 "a5ee3e693a0470a77735556a77a09aa83bfc48181998b9b21b1af82ef1d11c2a"
 
   url "https://download.virtualbox.org/virtualbox/#{version}/Oracle_VM_VirtualBox_Extension_Pack-#{version}.vbox-extpack"
-  appcast "https://download.virtualbox.org/virtualbox/LATEST.TXT"
   name "Oracle VirtualBox Extension Pack"
-  desc "AMD64/Intel64 and x86 virtualization"
+  desc "Extend the functionality of VirtualBox"
   homepage "https://www.virtualbox.org/"
+
+  livecheck do
+    url "https://download.virtualbox.org/virtualbox/LATEST.TXT"
+    strategy :page_match
+    regex(/(\d+(?:\.\d+)+)/)
+  end
 
   conflicts_with cask: "virtualbox-extension-pack-beta"
   depends_on cask: "virtualbox"

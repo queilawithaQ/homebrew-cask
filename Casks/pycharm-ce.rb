@@ -1,15 +1,31 @@
 cask "pycharm-ce" do
-  version "2020.2.3,202.7660.27"
-  sha256 "021fcdd4564cbb65c8e53b26feb2652bb09b14d7ca36f97539be124dd1dffdc4"
+  arch = Hardware::CPU.intel? ? "" : "-aarch64"
 
-  url "https://download.jetbrains.com/python/pycharm-community-#{version.before_comma}.dmg"
-  appcast "https://data.services.jetbrains.com/products/releases?code=PCC&latest=true&type=release"
+  version "2021.3,213.5744.248"
+
+  url "https://download.jetbrains.com/python/pycharm-community-#{version.before_comma}#{arch}.dmg"
+  if Hardware::CPU.intel?
+    sha256 "13e1db716f4a4626dd41f3bd881236864ec3d8516b1c2c04b74b89dfa91eadf1"
+  else
+    sha256 "0c04abd7ff7ec5cb0f7fc5964b94f598cd9d9e4b4505a8740f0d43986f7571bd"
+  end
+
   name "Jetbrains PyCharm Community Edition"
   name "PyCharm CE"
-  desc "Free and open-source IDE for Python programming - Community Edition"
+  desc "IDE for Python programming - Community Edition"
   homepage "https://www.jetbrains.com/pycharm/"
 
+  livecheck do
+    url "https://data.services.jetbrains.com/products/releases?code=PCC&latest=true&type=release"
+    strategy :page_match do |page|
+      JSON.parse(page)["PCC"].map do |release|
+        "#{release["version"]},#{release["build"]}"
+      end
+    end
+  end
+
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
   app "PyCharm CE.app"
 

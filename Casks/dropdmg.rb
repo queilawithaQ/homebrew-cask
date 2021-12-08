@@ -1,12 +1,17 @@
 cask "dropdmg" do
-  version "3.5.10"
-  sha256 "fe35111088fc5e77c3f87087c1404f513483ef5590aca0880bbbb78fcd4e3de1"
+  version "3.6.3"
+  sha256 "529b78a507dcc5a35e425a35d6cc3b2bad3115db8abbd63e918bf92a47440557"
 
   url "https://c-command.com/downloads/DropDMG-#{version}.dmg"
-  appcast "https://c-command.com/dropdmg/"
   name "DropDMG"
-  desc "Tool to create system disk images and cross-platform archives"
+  desc "Create DMGs and other archives"
   homepage "https://c-command.com/dropdmg/"
+
+  livecheck do
+    url "https://c-command.com/dropdmg/"
+    strategy :page_match
+    regex(%r{href=.*?/DropDMG-(\d+(?:\.\d+)+)\.dmg}i)
+  end
 
   app "DropDMG.app"
 

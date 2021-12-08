@@ -1,13 +1,22 @@
 cask "sourcetrail" do
-  version "2020.2.43"
-  sha256 "a79386bfdc4acf7643e107949807c998d05b89c2c2483df5fb635905835b39be"
+  version "2021.4.19"
+  sha256 "b2155e5b1f6f97b466d404821a61b57d4db0040356cd7487827ea9a003d65291"
 
-  # github.com/CoatiSoftware/Sourcetrail/ was verified as official when first introduced to the cask
-  url "https://github.com/CoatiSoftware/Sourcetrail/releases/download/#{version}/Sourcetrail_#{version.dots_to_underscores}_macOS_64bit.dmg"
-  appcast "https://github.com/CoatiSoftware/Sourcetrail/releases.atom"
+  url "https://github.com/CoatiSoftware/Sourcetrail/releases/download/#{version}/Sourcetrail_#{version.dots_to_underscores}_macOS_64bit.dmg",
+      verified: "github.com/CoatiSoftware/Sourcetrail/"
   name "Sourcetrail"
-  desc "Free and open-source cross-platform source explorer"
+  desc "Code source explorer"
   homepage "https://www.sourcetrail.com/"
 
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
   app "Sourcetrail.app"
+
+  zap trash: [
+    "~/Library/Application Support/Sourcetrail",
+    "~/Library/Saved Application State/com.sourcetrail.savedState",
+  ]
 end

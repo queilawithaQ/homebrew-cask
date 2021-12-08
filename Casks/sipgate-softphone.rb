@@ -1,12 +1,17 @@
 cask "sipgate-softphone" do
-  version "1.10.21"
-  sha256 "be66af72a43c17ee29196fd7e1df06c053cb71a10cac1378b22c3fc4a07abc3f"
+  version "1.16.4"
+  sha256 "120cccf00fe057391836e5af7a28b161572d456f441e448f81333a8c7c043f41"
 
-  # sipgate-desktop-app-dev.s3.amazonaws.com/ was verified as official when first introduced to the cask
-  url "https://sipgate-desktop-app-dev.s3.amazonaws.com/sipgate-softphone-#{version}.dmg"
-  appcast "https://sipgate-desktop-app-dev.s3.amazonaws.com/latest-mac.yml"
-  name "sipgate softphone"
+  url "https://sipgate-desktop-app-dev.s3.amazonaws.com/sipgate-softphone-#{version}.dmg",
+      verified: "sipgate-desktop-app-dev.s3.amazonaws.com/"
+  name "Sipgate Softphone"
+  desc "Make telephone calls on the computer"
   homepage "https://www.sipgateteam.de/softphone"
+
+  livecheck do
+    url "https://sipgate-desktop-app-dev.s3.amazonaws.com/latest-mac.yml"
+    strategy :electron_builder
+  end
 
   app "sipgate softphone.app"
 

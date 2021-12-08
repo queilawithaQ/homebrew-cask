@@ -1,11 +1,17 @@
 cask "id3-editor" do
-  version "1.28.49"
-  sha256 "72235fbd6c2ce1500347698b2657481fd5ef7f73c1ae60148e8035c9245adec5"
+  version "1.28.50"
+  sha256 "43390edcb10183fae90e5f541bdf97c757e92f1c250bf1d3baaf7a52ef5a05b3"
 
-  url "http://www.pa-software.com/release/ID3Editor.ub.#{version}.dmg"
-  appcast "http://www.pa-software.com/id3editor/history/"
+  url "http://www.pa-software.com/release/ID3Editor.arm.#{version}.dmg"
   name "ID3 Editor"
+  desc "MP3 and AIFF ID3 tag editor"
   homepage "http://www.pa-software.com/id3editor/"
+
+  livecheck do
+    url "http://www.pa-software.com/id3editor/history/"
+    strategy :page_match
+    regex(/Version\s*(\d+(?:\.\d+)*)/i)
+  end
 
   app "ID3 Editor.app"
 end

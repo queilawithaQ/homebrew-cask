@@ -1,11 +1,25 @@
 cask "adobe-creative-cloud" do
-  version "5.3.1.470"
-  sha256 "9e0c49b0078f2ad76129185ddfb3467a8061c7e160e71b877617f899fca62d5a"
+  arch = Hardware::CPU.intel? ? "osx10" : "macarm64"
 
-  url "https://ccmdl.adobe.com/AdobeProducts/KCCC/CCD/#{version.major_minor_patch.dots_to_underscores}/osx10/ACCCx#{version.dots_to_underscores}.dmg"
+  version "5.6.0.788"
+
+  url "https://ccmdl.adobe.com/AdobeProducts/KCCC/CCD/#{version.major_minor_patch.dots_to_underscores}/#{arch}/ACCCx#{version.dots_to_underscores}.dmg"
+  if Hardware::CPU.intel?
+    sha256 "bda1f1dce2c3b79c4770e6fa8370515af360ae51f36287d32ef4717fe9d0021a"
+  else
+    sha256 "62c18662eb2800dd8915de7c180cc81733fd9020447c173e0978386a1bc16341"
+  end
+
   name "Adobe Creative Cloud"
   desc "Collection of apps and services for photography, design, video, web, and UX"
   homepage "https://www.adobe.com/creativecloud.html"
+
+  livecheck do
+    url "https://helpx.adobe.com/creative-cloud/release-note/cc-release-notes.html"
+    regex(/Version\s*(\d+(?:\.\d+)+),?\s+(?:(?:was\s+)?released|for\s+macOS)/i)
+  end
+
+  auto_updates true
 
   installer script: {
     executable:   "#{staged_path}/Install.app/Contents/MacOS/Install",
@@ -20,7 +34,7 @@ cask "adobe-creative-cloud" do
 
   uninstall_postflight do
     stdout, * = system_command "/bin/launchctl", args: ["print", "gui/#{Process.uid}"]
-    ccx_processes = stdout.lines.grep(/com\.adobe\.CCXProcess\.\d{5}/) { $& }.uniq
+    ccx_processes = stdout.lines.grep(/com\.adobe\.CCXProcess\.\d{5}/) { Regexp.last_match(0) }.uniq
     ccx_processes.each { |id| system "/bin/launchctl", "bootout", "gui/#{Process.uid}/#{id}" }
   end
 

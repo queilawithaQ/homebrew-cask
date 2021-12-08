@@ -1,10 +1,15 @@
 cask "eclipse-jee" do
-  version "4.17.0,2020-09:R"
-  sha256 "3dd3b50914a26726a70245e766fec321f56d1f03aced7d5f7128d2b72b5c0d16"
+  version "4.21.0,2021-09"
+  sha256 "d1fcddd1bf899da1f1b18425a462c59f0b8c7adc12bb7b628bd9c931d22f034b"
 
-  url "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/#{version.after_comma.before_colon}/#{version.after_colon}/eclipse-jee-#{version.after_comma.before_colon}-#{version.after_colon}-macosx-cocoa-x86_64.dmg&r=1"
+  url "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/#{version.csv.second}/R/eclipse-jee-#{version.csv.second}-R-macosx-cocoa-x86_64.dmg&r=1"
   name "Eclipse IDE for Java EE Developers"
+  desc "Eclipse IDE for Java EE developers"
   homepage "https://eclipse.org/"
+
+  livecheck do
+    cask "eclipse-ide"
+  end
 
   # Renamed to avoid conflict with other Eclipse.
   app "Eclipse.app", target: "Eclipse JEE.app"

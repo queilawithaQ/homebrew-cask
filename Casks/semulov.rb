@@ -1,11 +1,11 @@
 cask "semulov" do
-  version "2.4.1"
-  sha256 "1b44931b3f2fe06ecab4e47759f67da5487703f06cb51d294c04b013189929d8"
+  version "2.6"
+  sha256 "fc25b015251562df79c89143b2fb123fc793d780e3f1eb9990d6d5723c870dc6"
 
-  url "https://www.kainjow.com/downloads/Semulov.zip"
-  appcast "https://kainjow.com/updates/semulov.xml"
+  url "https://github.com/kainjow/Semulov/releases/download/v#{version}/Semulov.zip"
   name "Semulov"
-  homepage "https://www.kainjow.com/"
+  desc "Access mounted and unmounted volumes from the menubar"
+  homepage "https://github.com/kainjow/Semulov"
 
   app "Semulov.app"
 end

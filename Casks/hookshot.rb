@@ -1,11 +1,16 @@
 cask "hookshot" do
-  version "1.8"
-  sha256 "88edcda3dce06cc10cf4c89d8325e71ed3fa92dab7d28594349f49bfbdb5a882"
+  version "1.23,53"
+  sha256 "58bbc31d5a412021a0ed298f1129abf6d013c0741cdf24558896e78620fe4d9b"
 
-  url "https://hookshot.app/downloads/Hookshot#{version}.dmg"
-  appcast "https://hookshot.app/downloads/updates.xml"
+  url "https://hookshot.app/downloads/Hookshot#{version.before_comma}.dmg"
   name "Hookshot"
+  desc "Window snapping tool"
   homepage "https://hookshot.app/"
+
+  livecheck do
+    url "https://hookshot.app/downloads/updates.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
   depends_on macos: ">= :sierra"

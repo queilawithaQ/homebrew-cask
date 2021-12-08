@@ -1,39 +1,50 @@
 cask "seamonkey" do
-  version "2.53.4"
+  version "2.53.10"
 
   language "de" do
-    sha256 "028b526965be854a81e9f09429ef2787a8f296a3c461116804bdea236e6b3b01"
+    sha256 "ac4ef957d9afe16efa67be7c213b10422c8ba4c8cff706d3e954b222a02a0c49"
     "de"
   end
   language "en-GB" do
-    sha256 "edbb5845566c986239f5ba0ed1941d6e43d36d72adbc3f7e32375953c89855a2"
+    sha256 "77dc31b0ee23f005b3f83b228adf228f2b5517a25f258c764455dd020810f19d"
     "en-GB"
   end
   language "en-US", default: true do
-    sha256 "c3f2603a141878ce0e7b2cab3d3351a32707b00b677b79b395cc969a08873020"
+    sha256 "5d1f20465c21beadcb8241aa83dcd83d60c119a5500a75d918d3520ea251fb37"
     "en-US"
   end
   language "fr" do
-    sha256 "eec9e5fbad24be0d8331951f332597c3fdc3174bc3f4b20103b3b01fa2c31f6e"
+    sha256 "b28773afb159878a68f548c26dc88ee792f67d9f6b9ff549ea06a23634e7c550"
     "fr"
   end
   language "it" do
-    sha256 "f9972ff9a80bca3f9c7404a8281f5162363fb100f3d4a33fd4e0aba7ac8aa65c"
+    sha256 "21231b368fedd8f5fd879454571ee9a31080ff9ce7146bc06d8bc29bf3e9668f"
     "it"
   end
   language "ru" do
-    sha256 "0eec1ff3c9f015cc5ef0ce8e94bfce352c02906df49703b34086a5fb5e81fb8a"
+    sha256 "d9305c8b4c8a893da8961f6ef173bdbc3f34f007e4e9edadb83a2fe8bd6809c1"
     "ru"
   end
 
-  # mozilla.org/pub/seamonkey/releases/ was verified as official when first introduced to the cask
-  url "https://archive.mozilla.org/pub/seamonkey/releases/#{version}/mac/#{language}/seamonkey-#{version}.#{language}.mac.dmg"
-  appcast "https://www.seamonkey-project.org/releases/"
+  url "https://archive.mozilla.org/pub/seamonkey/releases/#{version}/mac/#{language}/seamonkey-#{version}.#{language}.mac.dmg",
+      verified: "mozilla.org/pub/seamonkey/releases/"
   name "SeaMonkey"
   desc "Development of SeaMonkey Internet Application Suite"
   homepage "https://www.seamonkey-project.org/"
 
+  livecheck do
+    url "https://www.seamonkey-project.org/releases/"
+    regex(%r{href=.*?/seamonkey-(\d+(?:\.\d+)+)\.en-US\.mac\.dmg}i)
+  end
+
   auto_updates true
 
   app "SeaMonkey.app"
+
+  zap trash: [
+    "~/Library/Application Support/SeaMonkey",
+    "~/Library/Caches/SeaMonkey",
+    "~/Library/Preferences/org.mozilla.seamonkey.plist",
+    "~/Library/Saved Application State/org.mozilla.seamonkey.savedState",
+  ]
 end

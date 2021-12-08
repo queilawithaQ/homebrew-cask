@@ -1,11 +1,17 @@
 cask "010-editor" do
-  version "11.0"
-  sha256 "ac0c92a9096e56bd6e382fd353c3b0a0363e2d423f2913d7550f89841aaf8b46"
+  version "12.0.1"
+  sha256 "336cb1b7e055d3638e562e63539e90db4a795f738d67ca377c2e9dfac8670924"
 
   url "https://download.sweetscape.com/010EditorMac64Installer#{version}.dmg"
-  appcast "https://www.sweetscape.com/download/010editor/"
   name "010 Editor"
+  desc "Text editor"
   homepage "https://www.sweetscape.com/"
+
+  livecheck do
+    url "https://www.sweetscape.com/download/010editor/"
+    strategy :page_match
+    regex(/Version:?\s*(\d+(?:\.\d+)+),\s*macOS/i)
+  end
 
   app "010 Editor.app"
 end

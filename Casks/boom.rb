@@ -1,13 +1,17 @@
 cask "boom" do
-  version "1.6.11"
-  sha256 "624f8f01299d657e677098acfe4df6291136da5cff9949218168f4aced9a3be3"
+  version "1.7.1,101.7.1039"
+  sha256 :no_check
 
-  # d13nae1tw8tdnq.cloudfront.net/Boom2mac/ was verified as official when first introduced to the cask
-  url "https://d13nae1tw8tdnq.cloudfront.net/Boom2mac/webstore/Boom2.dmg"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_lastmodified.cgi?url=https://d13nae1tw8tdnq.cloudfront.net/Boom2mac/webstore/Boom2.dmg"
+  url "https://d13nae1tw8tdnq.cloudfront.net/Boom2mac/webstore/Boom2.dmg",
+      verified: "d13nae1tw8tdnq.cloudfront.net/Boom2mac/"
   name "Boom"
   desc "Transforms audio input"
-  homepage "https://www.globaldelight.com/boom"
+  homepage "https://www.globaldelight.com/boom2/"
+
+  livecheck do
+    url :url
+    strategy :extract_plist
+  end
 
   depends_on macos: ">= :yosemite"
 
@@ -18,9 +22,9 @@ cask "boom" do
             signal:    ["TERM", "com.globaldelight.Boom2"]
 
   zap trash: [
-    "~/Library/Application Support/com.globaldelight.Boom2",
     "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.globaldelight.boom2.sfl*",
     "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.globaldelight.boom2daemon.sfl*",
+    "~/Library/Application Support/com.globaldelight.Boom2",
     "~/Library/Preferences/com.globaldelight.Boom2.plist",
     "~/Library/Preferences/com.globaldelight.Boom2Daemon.plist",
   ]

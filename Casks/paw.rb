@@ -1,12 +1,16 @@
 cask "paw" do
-  version "3.2"
-  sha256 "d2ecc62da75260de539bc6ae3c14ebebfbc5e194ea2f385f6f48372d5eead4b1"
+  version "3.3.2,3003002002"
+  sha256 "a4bccd7646be6d310c44e3f74dbe8f3ace63dd00b02bd7fe8dbf5bc6286f3f7b"
 
-  url "https://cdn-builds.paw.cloud/paw/Paw-#{version}.zip"
-  appcast "https://paw.cloud/api/v2/updates/appcast"
+  url "https://cdn-builds.paw.cloud/paw/Paw-#{version.csv.first}.zip"
   name "Paw"
   desc "HTTP client that helps testing and describing APIs"
   homepage "https://paw.cloud/"
+
+  livecheck do
+    url "https://paw.cloud/api/v2/updates/appcast"
+    strategy :sparkle
+  end
 
   auto_updates true
   depends_on macos: ">= :sierra"

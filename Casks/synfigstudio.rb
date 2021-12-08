@@ -1,12 +1,22 @@
 cask "synfigstudio" do
-  version "1.3.16,20200806"
-  sha256 "5c83a03cd75914c4b0af856fda6ff17b950626191163937f8a79cd87f1fa41cd"
+  version "1.5.1,2021.10.21,2cb6c"
+  sha256 "546405de0a23bbc1c537098617af6873950da1645f1e2e9c8ca8356628b785d1"
 
-  # github.com/synfig/synfig/ was verified as official when first introduced to the cask
-  url "https://github.com/synfig/synfig/releases/download/v#{version.before_comma}/SynfigStudio-#{version.before_comma}-#{version.after_comma}.dmg"
-  appcast "https://github.com/synfig/synfig/releases.atom"
+  url "https://github.com/synfig/synfig/releases/download/v#{version.csv.first}/SynfigStudio-#{version.csv.first}-#{version.csv.second}-osx-#{version.csv.third}.dmg",
+      verified: "github.com/synfig/synfig/"
   name "Synfig Studio"
+  desc "2D animation software"
   homepage "https://synfig.org/"
+
+  livecheck do
+    url "https://github.com/synfig/synfig/releases/latest"
+    strategy :page_match do |page|
+      match = page.match(%r{href=.*?/SynfigStudio-(\d+(?:\.\d+)*)-(\d+(?:\.\d+)*)-osx-([a-z\d]+)\.dmg}i)
+      next if match.blank?
+
+      "#{match[1]},#{match[2]},#{match[3]}"
+    end
+  end
 
   app "SynfigStudio.app"
 

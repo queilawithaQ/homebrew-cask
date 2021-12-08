@@ -1,22 +1,26 @@
 cask "glyphs" do
-  version "2.6.6,1346"
-  sha256 "f46b8d774dafc6c5c622cd7c60523b3ec0672c4b8d63785ad1431e001f334bcf"
+  version "3.0.4,3105"
+  sha256 "f6f234629bdb292057bd22aa9254b42325f0d56517921470911c206e5f9de547"
 
-  url "https://updates.glyphsapp.com/Glyphs#{version.major_minor_patch}-#{version.after_comma}.zip"
-  appcast "https://updates.glyphsapp.com/appcast#{version.major}.xml"
+  url "https://updates.glyphsapp.com/Glyphs#{version.csv.first}-#{version.csv.second}.zip"
   name "Glyphs"
-  desc "Font Editor"
+  desc "Font editor"
   homepage "https://glyphsapp.com/"
+
+  livecheck do
+    url "https://updates.glyphsapp.com/appcast#{version.major}.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app "Glyphs.app"
+  app "Glyphs #{version.major}.app"
 
   zap trash: [
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.georgseifert.glyphs#{version.major}.sfl*",
+    "~/Library/Application Support/com.GeorgSeifert.Glyphs#{version.major}",
     "~/Library/Application Support/Glyphs",
-    "~/Library/Application Support/com.GeorgSeifert.Glyphs2",
-    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.georgseifert.glyphs2.sfl*",
-    "~/Library/Caches/com.apple.helpd/SDMHelpData/Other/English/HelpSDMIndexFile/com.GeorgSeifert.Glyphs2.help*",
-    "~/Library/Preferences/com.GeorgSeifert.Glyphs2.plist",
+    "~/Library/Caches/com.apple.helpd/SDMHelpData/Other/English/HelpSDMIndexFile/com.GeorgSeifert.Glyphs#{version.major}.help*",
+    "~/Library/Preferences/com.GeorgSeifert.Glyphs#{version.major}.plist",
   ]
 end

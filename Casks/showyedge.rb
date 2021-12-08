@@ -1,15 +1,19 @@
 cask "showyedge" do
-  version "4.0.0"
-  sha256 "29c16c030055a472b7b5c06a2dccc8bc85e1895c27bea14622ef879df8db93a1"
+  version "5.3.0"
+  sha256 "f527657b6d7d672fe4c997adbc11e3b3ae16fd6a44450481257b36ea16e4a217"
 
-  # github.com/pqrs-org/ShowyEdge/ was verified as official when first introduced to the cask
-  url "https://github.com/pqrs-org/ShowyEdge/releases/download/v#{version}/ShowyEdge-#{version}.dmg"
-  appcast "https://appcast.pqrs.org/showyedge-appcast.xml"
+  url "https://github.com/pqrs-org/ShowyEdge/releases/download/v#{version}/ShowyEdge-#{version}.dmg",
+      verified: "github.com/pqrs-org/ShowyEdge/"
   name "ShowyEdge"
   desc "Visible indicator of the current input source"
-  homepage "https://pqrs.org/osx/ShowyEdge/"
+  homepage "https://showyedge.pqrs.org/"
 
-  depends_on macos: ">= :catalina"
+  livecheck do
+    url "https://appcast.pqrs.org/showyedge-appcast.xml"
+    strategy :sparkle
+  end
+
+  depends_on macos: ">= :big_sur"
 
   app "ShowyEdge.app"
 

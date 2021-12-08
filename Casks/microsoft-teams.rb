@@ -1,11 +1,17 @@
 cask "microsoft-teams" do
-  version "1.3.00.26266"
-  sha256 "5237ca869c0c84a330b3038ff8e5ca8b1c430413a663c2642b9d799ec998bbe2"
+  version "1.4.00.29478"
+  sha256 "2f7ccb9e583495883af48650da78b2d021148870acf7a5b6b01dd4b37a2d0cb6"
 
-  url "https://statics.teams.microsoft.com/production-osx/#{version}/Teams_osx.pkg"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://aka.ms/teamsmac"
+  url "https://statics.teams.cdn.office.net/production-osx/#{version}/Teams_osx.pkg",
+      verified: "statics.teams.cdn.office.net"
   name "Microsoft Teams"
+  desc "Meet, chat, call, and collaborate in just one place"
   homepage "https://teams.microsoft.com/downloads"
+
+  livecheck do
+    url "https://aka.ms/teamsmac"
+    strategy :header_match
+  end
 
   auto_updates true
 

@@ -1,14 +1,18 @@
 cask "thunder" do
-  version "3.4.1.4368"
-  sha256 "a732b748d95005fbf7ecfe3373be037940b10127dc1adf3de30a4a05d46a97f2"
+  version "4.1.2.65083"
+  sha256 "109dab51d234138d6069d43098727566e93fb974748b459303c7d2cc39c83214"
 
-  # down.sandai.net/ was verified as official when first introduced to the cask
-  url "https://down.sandai.net/mac/thunder_#{version}.dmg"
-  appcast "https://static-xl9-ssl.xunlei.com/json/mac_download_url.json"
+  url "https://down.sandai.net/mac/thunder_#{version}.dmg",
+      verified: "down.sandai.net/"
   name "Thunder"
   name "迅雷"
   desc "VPN and WiFi proxy"
   homepage "https://www.xunlei.com/"
+
+  livecheck do
+    url "https://static-xl9-ssl.xunlei.com/json/mac_preferences.json"
+    regex(/appcast[._-]v?(\d+(?:\.\d+)+)\.xml/i)
+  end
 
   auto_updates true
   depends_on macos: ">= :yosemite"

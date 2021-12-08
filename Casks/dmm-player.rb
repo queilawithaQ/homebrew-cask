@@ -1,11 +1,16 @@
 cask "dmm-player" do
-  version "2.1.1"
-  sha256 "a1ddedd5dc85cb89d46f35ad6a13c21ba3c1c4bd426566a444acd316cafe0f68"
+  version "2.1.9"
+  sha256 "420aaef55b881cd6f9a648a71e9604d2a8db758db835baff24b62e8ea3a64090"
 
   url "https://portalapp.dmm.com/dmmplayerv#{version.major}/dmm/#{version.dots_to_underscores}/DMMPlayerV#{version.major}Installer_#{version.dots_to_underscores}.pkg"
   name "DMM Player"
   desc "Video player for the DMM.com platform"
   homepage "https://www.dmm.com/digital/howto_dmmplayer_html/"
+
+  livecheck do
+    url "https://www.dmm.com/digital/-/dmmplayerv2inst/=/type=v2_mac/"
+    strategy :header_match
+  end
 
   pkg "DMMPlayerV#{version.major}Installer_#{version.dots_to_underscores}.pkg"
 

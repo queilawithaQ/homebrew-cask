@@ -1,11 +1,19 @@
 cask "kstars" do
-  version "3.4.3"
-  sha256 "6bf27a3c97a81b520783d5ea864faa9ee3343ed5aa6e1a38f88f49e2e829375b"
+  version "3.5.6"
+  sha256 "d4e348a174136bc82d77802030da2c18cb57f62752b62486dfe8e62de0fdddfa"
 
-  # indilib.org/jdownloads/kstars/ was verified as official when first introduced to the cask
-  url "https://www.indilib.org/jdownloads/kstars/kstars-#{version}.dmg"
+  url "https://www.indilib.org/jdownloads/kstars/kstars-#{version}.dmg",
+      verified: "indilib.org/jdownloads/kstars/"
   name "KStars"
+  desc "Astronomy software"
   homepage "https://edu.kde.org/kstars/"
+
+  livecheck do
+    url :homepage
+    regex(%r{href=.*?/kstars-(\d+(?:\.\d+)+)\.dmg}i)
+  end
+
+  depends_on macos: ">= :high_sierra"
 
   app "kstars.app"
 end

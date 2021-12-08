@@ -1,13 +1,19 @@
 cask "marvel" do
-  version "10.3.1"
-  sha256 "3c28f919dd68cb16b05023345fb4a8f12266b4768bf1934d7b0e53f63e9cfe68"
+  version "10.9.7,5072"
+  sha256 "87e24bb48022ab88c91d9a9509220943728004d6578df68cd2b52a9c5b7724fd"
 
-  # storage.googleapis.com/sketch-plugin/ was verified as official when first introduced to the cask
-  url "https://storage.googleapis.com/sketch-plugin/#{version}/Marvel.zip"
-  appcast "https://storage.googleapis.com/sketch-plugin/app.xml"
+  url "https://storage.googleapis.com/sketch-plugin/#{version.before_comma}/Marvel.zip",
+      verified: "storage.googleapis.com/sketch-plugin/"
   name "Marvel"
   desc "Prototyping, testing and handoff tools"
   homepage "https://marvelapp.com/"
 
+  livecheck do
+    url "https://storage.googleapis.com/sketch-plugin/app.xml"
+    strategy :sparkle
+  end
+
   app "Marvel.app"
+
+  zap trash: "~/Library/Caches/com.marvelprototyping.marvelmacos"
 end

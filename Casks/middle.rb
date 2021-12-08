@@ -1,23 +1,29 @@
 cask "middle" do
-  version "1.5.3"
-  sha256 "d523845e93cbabb0b23720dc15400ca91616375e08becf68bcdcbc3a2e94a025"
+  version "1.6.2,65"
+  sha256 "28fa9dd31686c51b56cee4cecee84c86f5d6cb29bc3d60d0b481ce42d3bed6b4"
 
-  url "https://middleclick.app/downloads/Middle#{version}.dmg"
-  appcast "https://middleclick.app/downloads/updates.xml"
+  url "https://middleclick.app/downloads/Middle#{version.before_comma}.dmg"
   name "Middle"
+  desc "Add middle click for Trackpad and Magic Mouse"
   homepage "https://middleclick.app/"
 
+  livecheck do
+    url "https://middleclick.app/downloads/updates.xml"
+    strategy :sparkle
+  end
+
   auto_updates true
+  depends_on macos: ">= :sierra"
 
   app "Middle.app"
 
   uninstall quit: "com.knollsoft.Middle"
 
   zap trash: [
-    "~/Library/Containers/com.knollsoft.MiddleLauncher",
-    "~/Library/Preferences/com.knollsoft.Middle.plist",
-    "~/Library/Caches/com.knollsoft.Middle",
-    "~/Library/Cookies/com.knollsoft.Middle.binarycookies",
     "~/Library/Application Support/Middle",
+    "~/Library/Caches/com.knollsoft.Middle",
+    "~/Library/Containers/com.knollsoft.MiddleLauncher",
+    "~/Library/Cookies/com.knollsoft.Middle.binarycookies",
+    "~/Library/Preferences/com.knollsoft.Middle.plist",
   ]
 end

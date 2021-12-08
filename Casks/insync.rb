@@ -1,11 +1,16 @@
 cask "insync" do
-  version "3.2.9.40883"
-  sha256 "c83cb07ec72c56affd934d7b6cb7a1f6c2f5348ef5d081d0769653af403c85f3"
+  version "3.6.1.50206"
+  sha256 "e6927fef08f35ad35388ef99f48da32fc9d77088eee7f71e39f38033423e43ce"
 
   url "http://s.insynchq.com/builds/Insync-#{version}.dmg"
-  appcast "https://www.insynchq.com/downloads?start=true"
   name "Insync"
+  desc "Manage your Google Drive and OneDrive files"
   homepage "https://www.insynchq.com/"
+
+  livecheck do
+    url :homepage
+    regex(%r{/Insync[._-]?v?(\d+(?:\.\d+)+)\.dmg}i)
+  end
 
   auto_updates true
 

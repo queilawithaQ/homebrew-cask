@@ -1,12 +1,20 @@
 cask "feed-the-beast" do
-  version "202007161516-479dedc615-release"
-  sha256 "666fbc76cf2c65d9e409fd5dd23ed072efb77babb34ad822f6d682bf19f5843e"
+  version "202111051727,fc8797cf31"
+  sha256 "f169e80c3bf6289ca5f810ba44b4d0fe92720150eb8b301ab631078b01a4b205"
 
-  # apps.modpacks.ch/FTBApp/ was verified as official when first introduced to the cask
-  url "https://apps.modpacks.ch/FTBApp/release/#{version}/FTBA_macos_#{version.dots_to_underscores}.dmg"
-  appcast "https://www.feed-the-beast.com/app_release.xml"
+  url "https://apps.modpacks.ch/FTBApp/release/#{version.before_comma}-#{version.after_comma}-release/FTBA_macos_#{version.before_comma}-#{version.after_comma}-release.dmg",
+      verified: "apps.modpacks.ch/FTBApp/"
   name "Feed the Beast"
+  desc "Minecraft mod downloader and manager"
   homepage "https://www.feed-the-beast.com/"
+
+  livecheck do
+    url "https://www.feed-the-beast.com/app_release.xml"
+    regex(/FTBA[._-]macos[._-](\d+)[._-](\h+)[._-]release\.dmg/i)
+    strategy :page_match do |page, regex|
+      page.scan(regex).map { |match| "#{match[0]},#{match[1]}" }
+    end
+  end
 
   app "FTBApp.app"
 

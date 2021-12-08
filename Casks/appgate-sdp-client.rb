@@ -1,15 +1,42 @@
 cask "appgate-sdp-client" do
-  version "5.2.2"
-  sha256 "49b4550fb39c2a8db193f11c1bcdb21795ceefa0642501cae1b9094568d8f6af"
+  if MacOS.version <= :high_sierra
+    version "5.3.3"
+    sha256 "935c87fcec29c6c7ab28ced0b3da8bb98db7f6b51303c3d651c53b14fc17fcbd"
+  else
+    version "5.5.0"
+    sha256 "6a46b8bad4e6c876c5b73594ed7644bd91c28f5de9cdddf36b2dc0330bcb13e3"
 
-  # bin.appgate-sdp.com/ was verified as official when first introduced to the cask
-  url "https://bin.appgate-sdp.com/#{version.major_minor}/client/AppGate-SDP-#{version}-Installer.dmg"
-  appcast "https://www.appgate.com/software-defined-perimeter/support/appgate-sdp-v#{version.major}-#{version.minor}"
+    livecheck do
+      url :homepage
+      regex(%r{href=.*?/Appgate-SDP[._-](\d+(?:\.\d+)+)[._-]Installer\.dmg}i)
+      strategy :page_match do |page, regex|
+        support_versions =
+          page.scan(%r{href=["']?([^"' >]*?/software-defined-perimeter-support/sdp[._-]v?(\d+(?:[.-]\d+)+))["' >]}i)
+              .sort_by { |match| Version.new(match[1]) }
+        next [] if support_versions.blank?
+
+        # Assume the last-sorted version is newest
+        version_page_path, = support_versions.last
+
+        # Check the page for the newest major/minor version, which links to the
+        # latest disk image file (containing the full version in the file name)
+        version_page = Homebrew::Livecheck::Strategy.page_content(
+          URI.join("https://www.appgate.com/", version_page_path),
+        )
+        next [] if version_page[:content].blank?
+
+        version_page[:content].scan(regex).map(&:first)
+      end
+    end
+  end
+
+  url "https://bin.appgate-sdp.com/#{version.major_minor}/client/Appgate-SDP-#{version}-Installer.dmg",
+      verified: "bin.appgate-sdp.com/"
   name "AppGate SDP Client for macOS"
   desc "Software-defined perimeter for secure network access"
-  homepage "https://www.appgate.com/software-defined-perimeter/support"
+  homepage "https://www.appgate.com/support/software-defined-perimeter-support"
 
-  depends_on macos: ">= :el_capitan"
+  depends_on macos: ">= :high_sierra"
 
   pkg "AppGate SDP Installer.pkg"
 

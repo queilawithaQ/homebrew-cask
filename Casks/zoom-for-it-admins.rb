@@ -1,22 +1,28 @@
 cask "zoom-for-it-admins" do
-  version "5.3.53291.1011"
-  sha256 "11bb7d25cc37d3ea7da63f8516519c6f5023e537e72aae1e245352fd66e44712"
+  version "5.8.6.2879"
+  sha256 "4ede3b09d40bc9b119d4fcb51ca7edd6bd3f7d6c6b303c6b5f1583dd4d5db69b"
 
-  # d11yldzmag5yn.cloudfront.net/ was verified as official when first introduced to the cask
-  url "https://d11yldzmag5yn.cloudfront.net/prod/#{version}/ZoomInstallerIT.pkg"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://zoom.us/client/latest/Zoom.pkg"
+  url "https://cdn.zoom.us/prod/#{version}/ZoomInstallerIT.pkg"
   name "Zoom for IT Admins"
   desc "Video communication and virtual meeting platform"
   homepage "https://support.zoom.us/hc/en-us/articles/115001799006-Mass-Deployment-with-Preconfigured-Settings-for-Mac"
 
-  auto_updates true
-  conflicts_with cask: "zoomus"
+  livecheck do
+    url "https://zoom.us/client/latest/Zoom.pkg"
+    strategy :header_match
+  end
+
+  # Do not add `auto_updates`. While supporting an auto-update mechanism, this software is more inconvenient than most
+  # See https://github.com/Homebrew/homebrew-cask/pull/93083
+
+  conflicts_with cask: "zoom"
 
   pkg "ZoomInstallerIT.pkg"
 
-  uninstall signal:  ["KILL", "us.zoom.xos"],
-            pkgutil: "us.zoom.pkg.videmeeting",
-            delete:  [
+  uninstall signal:    ["KILL", "us.zoom.xos"],
+            pkgutil:   "us.zoom.pkg.videomeeting",
+            launchctl: "us.zoom.ZoomDaemon",
+            delete:    [
               "/Applications/zoom.us.app",
               "/Library/Audio/Plug-Ins/HAL/ZoomAudioDevice.driver",
               "/Library/Internet Plug-Ins/ZoomUsPlugIn.plugin",

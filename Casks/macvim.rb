@@ -1,12 +1,16 @@
 cask "macvim" do
-  version "8.2.1719,166"
-  sha256 "7c316ec0d0f30223a77699e9acfa6f710dc45be2e2b4c7870cb1823324845d74"
+  version "172"
+  sha256 "c603a81036e7dab04e5daee70e1811675a859f833ae6aa713aca5bfc8a26c977"
 
-  url "https://github.com/macvim-dev/macvim/releases/download/snapshot-#{version.after_comma}/MacVim.dmg"
-  appcast "https://github.com/macvim-dev/macvim/releases.atom"
+  url "https://github.com/macvim-dev/macvim/releases/download/snapshot-#{version}/MacVim.dmg"
   name "MacVim"
   desc "Text editor"
   homepage "https://github.com/macvim-dev/macvim"
+
+  livecheck do
+    url :url
+    strategy :git
+  end
 
   auto_updates true
   conflicts_with formula: "macvim"
@@ -17,12 +21,16 @@ cask "macvim" do
     gview
     gvim
     gvimdiff
+    gvimex
     mview
     mvim
     mvimdiff
+    mvimex
     view
     vim
     vimdiff
+    vimex
+    vi
   ].each { |link_name| binary "#{appdir}/MacVim.app/Contents/bin/mvim", target: link_name }
 
   zap trash: [

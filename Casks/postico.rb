@@ -1,13 +1,19 @@
 cask "postico" do
-  version "1.5.14"
-  sha256 "ad59c784361ba6652c8f219e1a23dcb3cab58977cdfec2be7b97419b1c1e2825"
+  version "1.5.20"
+  sha256 "cede47c34062087ccb74f3f5d2aeab089e7719b981f13f14b9b2a79f5c0f0fe9"
 
-  # eggerapps-downloads.s3.amazonaws.com/ was verified as official when first introduced to the cask
-  url "https://eggerapps-downloads.s3.amazonaws.com/postico-#{version}.zip"
-  appcast "https://eggerapps.at/postico/docs/?file=changelist.html"
+  url "https://eggerapps-downloads.s3.amazonaws.com/postico-#{version}.zip",
+      verified: "eggerapps-downloads.s3.amazonaws.com/"
   name "Postico"
   desc "GUI client for PostgreSQL databases"
   homepage "https://eggerapps.at/postico/"
+
+  livecheck do
+    url "https://eggerapps.at/postico/download/"
+    strategy :header_match
+  end
+
+  depends_on macos: ">= :yosemite"
 
   app "Postico.app"
 

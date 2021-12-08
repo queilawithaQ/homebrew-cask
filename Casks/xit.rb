@@ -1,12 +1,17 @@
 cask "xit" do
-  version "1.0b14"
-  sha256 "cfd3a0450e55d9e478ef392aa11c42c509a2dafc41ede41356b6579e953df830"
+  version "1.0b16"
+  sha256 "0e9897d16a5a613a4da9861c907e1f0922df446cc88628e13271793a6c94b229"
 
   url "https://github.com/Uncommon/Xit/releases/download/#{version}/Xit.zip"
-  appcast "https://github.com/Uncommon/Xit/releases.atom"
   name "Xit"
   desc "GUI for the git version control system"
   homepage "https://github.com/Uncommon/Xit"
+
+  livecheck do
+    url :url
+    strategy :git
+    regex(/^v?(\d+(?:\.\d+)*(?:b\d+)?)$/i)
+  end
 
   depends_on macos: ">= :mojave"
 

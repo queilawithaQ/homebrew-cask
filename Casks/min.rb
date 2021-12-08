@@ -1,10 +1,16 @@
 cask "min" do
-  version "1.16.0"
-  sha256 "71873233107c5796a61d79629c0786287dcb8bc8832e3d05ff5d31224e4141c5"
+  arch = Hardware::CPU.intel? ? "x64" : "arm64"
 
-  # github.com/minbrowser/min/ was verified as official when first introduced to the cask
-  url "https://github.com/minbrowser/min/releases/download/v#{version}/Min-v#{version}-darwin-x64.zip"
-  appcast "https://github.com/minbrowser/min/releases.atom"
+  version "1.22.1"
+
+  if Hardware::CPU.intel?
+    sha256 "9d1fc0de80c7db309893fa0caef23a6a08facb92fd6d78b85c7f2f40d9f73d6e"
+  else
+    sha256 "f61f62e0f715b8cdaa98f5cbaa4506e4526295f31d2db238732b6445c8156d09"
+  end
+
+  url "https://github.com/minbrowser/min/releases/download/v#{version}/Min-v#{version}-darwin-#{arch}.zip",
+      verified: "github.com/minbrowser/min/"
   name "Min"
   desc "Minimal browser that protects privacy"
   homepage "https://minbrowser.github.io/min/"

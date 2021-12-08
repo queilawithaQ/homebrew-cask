@@ -1,14 +1,31 @@
 cask "anydesk" do
-  version "6.0.3"
-  sha256 "6f58174a530eef5bbf9d62d46dd4493e6928daf824aadecbc60e54cc37200ede"
+  version "6.3.3"
+  sha256 :no_check
 
   url "https://download.anydesk.com/anydesk.dmg"
-  appcast "https://anydesk.com/en/downloads/mac-os"
   name "AnyDesk"
   desc "Allows connection to a computer remotely"
-  homepage "https://anydesk.com/remote-desktop"
+  homepage "https://anydesk.com/"
+
+  livecheck do
+    url "https://anydesk.com/en/downloads/mac-os"
+    regex(/>v(\d+(?:\.\d+)+)[\s<]/i)
+  end
 
   app "AnyDesk.app"
+
+  uninstall quit:   [
+    "com.philandro.anydesk",
+    "com.philandro.anydesk.Helper",
+    "com.philandro.anydesk.service",
+    "com.philandro.anydesk.Frontend",
+  ],
+            delete: [
+              "/Library/LaunchAgents/com.philandro.anydesk.Frontend.plist",
+              "/Library/LaunchDaemons/com.philandro.anydesk.Helper.plist",
+              "/Library/LaunchDaemons/com.philandro.anydesk.service.plist",
+              "/Library/PrivilegedHelperTools/com.philandro.anydesk.Helper",
+            ]
 
   zap trash: [
     "~/.anydesk",

@@ -1,12 +1,17 @@
 cask "zalo" do
-  version "20.10.1"
-  sha256 "3d37cca58ed71c14c28330c2c688955c6504ed42ba7293b4e083bf1537a8bfd4"
+  version "21.11.3"
+  sha256 "38ac28251e8cf446b01629d4786bd068011e12745558839fa4e89370b009d6ba"
 
-  # res-zaloapp-aka.zdn.vn/mac/ was verified as official when first introduced to the cask
-  url "https://res-zaloapp-aka.zdn.vn/mac/ZaloSetup-#{version}.dmg#"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?user_agent=Macintosh&url=https://zalo.me/download/zalo-pc"
+  url "https://res-zaloapp-aka.zdn.vn/mac/ZaloSetup-#{version}.dmg#",
+      verified: "res-zaloapp-aka.zdn.vn/mac/"
   name "Zalo"
+  desc "Messaging and calling application"
   homepage "https://zalo.me/"
+
+  livecheck do
+    url "https://zalo.me/download/zalo-pc"
+    strategy :header_match
+  end
 
   app "Zalo.app"
 

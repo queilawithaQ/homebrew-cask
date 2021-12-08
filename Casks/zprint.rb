@@ -1,9 +1,8 @@
 cask "zprint" do
-  version "1.0.0"
-  sha256 "b707f1188c175c2028c014f0ae88cb384283aa6d097bb31298d66852162581b1"
+  version "1.2.0"
+  sha256 "3497c5f15df5deddaa47c9be8d33afc625b4645e178d089d8cd919d0061ef943"
 
   url "https://github.com/kkinnear/zprint/releases/download/#{version}/zprintm-#{version}"
-  appcast "https://github.com/kkinnear/zprint/releases.atom"
   name "zprint"
   desc "Library to reformat Clojure and Clojurescript source code and s-expressions"
   homepage "https://github.com/kkinnear/zprint"

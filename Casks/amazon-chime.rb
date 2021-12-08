@@ -1,11 +1,16 @@
 cask "amazon-chime" do
-  version "4.35.8161"
-  sha256 "34f5586e59dba8f7e96a23b06b31ae94e075b40eb8587d195c7d91690cd74265"
+  version "4.39.8605"
+  sha256 "792b2bea8632ed7c796a96dfea84db931225c392f42f31d52a989d52501e2a49"
 
-  url "https://clients.chime.aws/mac/releases/AmazonChime-OSX.release-#{version}.dmg"
-  appcast "https://clients.chime.aws/mac/appcast"
+  url "https://clients.chime.aws/mac/releases/AmazonChime-OSX-notarize.release-#{version}.dmg"
   name "Amazon Chime"
+  desc "Communications service"
   homepage "https://chime.aws/"
+
+  livecheck do
+    url "https://clients.chime.aws/mac/appcast"
+    strategy :sparkle
+  end
 
   auto_updates true
   depends_on macos: ">= :el_capitan"

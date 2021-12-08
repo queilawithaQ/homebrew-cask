@@ -1,15 +1,20 @@
 cask "tableau" do
-  version "2020.3.1"
-  sha256 "0a8476de84614c86da477a540e2f2fefbf3a6e0561e4567ce218c87acaa2adfa"
+  version "2021.3.4"
+  sha256 "33c686d0981b07af49bd2f3bd780c8ffdcb0d2f0bf42f8c167229af002a51061"
 
   url "https://downloads.tableau.com/tssoftware/TableauDesktop-#{version.dots_to_hyphens}.dmg"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://www.tableau.com/downloads/desktop/mac",
-          must_contain: version.dots_to_hyphens
   name "Tableau Desktop"
-  desc "Popular analytics platform"
-  homepage "https://www.tableau.com/products/desktop/download"
+  desc "Data visualization software"
+  homepage "https://www.tableau.com/products/desktop"
 
-  depends_on macos: ">= :yosemite"
+  livecheck do
+    url "https://www.tableau.com/downloads/desktop/mac"
+    strategy :header_match do |headers|
+      headers["location"][/-(\d+-\d+-\d+)\.dmg/i, 1].tr("-", ".")
+    end
+  end
+
+  depends_on macos: ">= :high_sierra"
 
   pkg "Tableau Desktop.pkg"
 

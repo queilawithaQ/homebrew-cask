@@ -1,15 +1,23 @@
 cask "camo-studio" do
-  version "1.0.9,90"
-  sha256 "e14041b4163088d9a1a5cb8c03e6137177497b0b8e6ad8e299dc39d55faf1565"
+  version "1.5.1,5687"
+  sha256 "11bf7f5da0f158b41df2e883c0a04a91733b7cd2f675f0632c332883f02f8032"
 
-  url "https://reincubate.com/res/labs/camo/Camo%20Studio%20#{version.before_comma}%20%28#{version.after_comma}%29%20%5BRelease%5D.app.zip"
-  appcast "https://uds.reincubate.com/release-notes/camo/?format=sparkle"
+  url "https://reincubate.com/res/labs/camo/CamoStudioMac-#{version.before_comma}-#{version.after_comma}-Release.app.zip"
   name "Camo Studio"
+  desc "Use your phone as a high-quality webcam with image tuning controls"
   homepage "https://reincubate.com/camo/"
+
+  livecheck do
+    url "https://uds.reincubate.com/release-notes/camo/?format=sparkle"
+    strategy :sparkle
+  end
 
   auto_updates true
 
   app "Camo Studio.app"
 
-  uninstall delete: "/Library/CoreMediaIO/Plug-Ins/DAL/ReincubateCamoDAL.plugin"
+  zap trash: [
+    "~/Library/Caches/com.reincubate.macos.cam",
+    "~/Library/Preferences/com.reincubate.macos.cam.plist",
+  ]
 end

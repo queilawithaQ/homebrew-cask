@@ -1,14 +1,23 @@
 cask "ximalaya" do
-  version "1.3.2,1602486767"
-  sha256 "1747d59c40ff4f2b9c033854cd69e4a77db66e754c79f2228dc4d5cb936a8aa0"
+  version "2.2.0,1637833363"
+  sha256 "08683899b2ae0b633063607e8cc117126ca4940a360b0c590e0cdb75db3493fe"
 
-  # s1.xmcdn.com/ was verified as official when first introduced to the cask
-  url "https://s1.xmcdn.com/yx/ximalaya-pc-client/#{version.before_comma}/download/Ximalaya-#{version.before_comma}_#{version.after_comma}.dmg"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://www.ximalaya.com/down/lite?client=mac"
+  url "https://s1.xmcdn.com/yx/ximalaya-pc-client/#{version.before_comma}/download/mac-x64/Ximalaya_#{version.before_comma}_#{version.after_comma}.dmg",
+      verified: "s1.xmcdn.com/"
   name "ximalaya"
   name "喜马拉雅"
   desc "Platform for podcasting and audio-sharing"
   homepage "https://www.ximalaya.com/"
+
+  livecheck do
+    url "https://www.ximalaya.com/down/lite?client=mac"
+    strategy :header_match do |headers|
+      match = headers["location"].match(%r{/Ximalaya[_-](\d+(?:\.\d+)+)[_-](\d+)\.dmg}i)
+      next if match.blank?
+
+      "#{match[1]},#{match[2]}"
+    end
+  end
 
   app "喜马拉雅.app"
 end

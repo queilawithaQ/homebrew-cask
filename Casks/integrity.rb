@@ -1,12 +1,16 @@
 cask "integrity" do
-  version "9.12.4"
-  sha256 "a5300e9881a8690325ed4482a79fd1aa049af870eb926d8682adc9174461cd5d"
+  version "10.4.7"
+  sha256 :no_check
 
   url "https://peacockmedia.software/mac/integrity/integrity.dmg"
-  appcast "https://peacockmedia.software/mac/integrity/version_history.html"
   name "Integrity"
-  desc "Tool to scans a website checking for broken links"
+  desc "Tool to scan a website checking for broken links"
   homepage "https://peacockmedia.software/mac/integrity/"
+
+  livecheck do
+    url "https://peacockmedia.software/mac/integrity/version_history.html"
+    regex(/<h3>v?(\d+(?:\.\d+)+)\s/i)
+  end
 
   app "Integrity.app"
 

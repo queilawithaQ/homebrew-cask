@@ -1,19 +1,23 @@
 cask "meshlab" do
-  version "2020.09"
-  sha256 "adb6b824d3af7f114246f473baaa10c3409798ad1d58431849efe9ef597f7490"
+  version "2021.10"
+  sha256 "84ce5706104012d50da8488f0cb09a70651b7e037c4dbe52e979d1ade18f6f91"
 
-  # github.com/cnr-isti-vclab/meshlab/ was verified as official when first introduced to the cask
-  url "https://github.com/cnr-isti-vclab/meshlab/releases/download/Meshlab-#{version}/MeshLab#{version}-macos.dmg"
-  appcast "https://github.com/cnr-isti-vclab/meshlab/releases.atom"
+  url "https://github.com/cnr-isti-vclab/meshlab/releases/download/Meshlab-#{version}/MeshLab#{version}-macos.dmg",
+      verified: "github.com/cnr-isti-vclab/meshlab/"
   name "MeshLab"
-  desc "Open-source mesh processing system"
+  desc "Mesh processing system"
   homepage "https://www.meshlab.net/"
 
-  app "meshlab.app"
+  livecheck do
+    url :url
+    regex(/^Meshlab[._-]v?(\d+(?:\.\d+)+)$/i)
+  end
+
+  app "MeshLab#{version}.app"
 
   postflight do
     # workaround for bug which breaks the app on case-sensitive filesystems
-    Dir.chdir("#{appdir}/meshlab.app/Contents/MacOS") do
+    Dir.chdir("#{appdir}/MeshLab#{version}.app/Contents/MacOS") do
       File.symlink("meshlab", "MeshLab") unless File.exist? "MeshLab"
     end
   end

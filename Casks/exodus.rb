@@ -1,11 +1,23 @@
 cask "exodus" do
-  version "20.10.19"
-  sha256 "f622d9337e5cf6e6bcdd7e2656889dd8a7507b9a554ffa5b9b3c21190c543d29"
+  arch = Hardware::CPU.intel? ? "macos" : "macos-arm64"
 
-  url "https://downloads.exodus.io/releases/exodus-macos-#{version}.dmg"
-  appcast "https://www.exodus.io/releases/"
+  version "21.12.3"
+
+  if arch == "macos"
+    sha256 "9abbd9ac93adef3d0ef3e50f8257d0edb48c0bc97bd3d2034ecb668b8d8b3153"
+  else
+    sha256 "bf56db014a2f3500e2170f62c6b0fc717239dce6be5910ddc3e659b2b7970b7d"
+  end
+
+  url "https://downloads.exodus.com/releases/exodus-#{arch}-#{version}.dmg"
   name "Exodus"
-  homepage "https://www.exodus.io/"
+  desc "Desktop wallet for cryptocurrency assets"
+  homepage "https://www.exodus.com/"
+
+  livecheck do
+    url "https://www.exodus.com/releases/"
+    regex(%r{/hashes[._-]exodus[._-]?v?(\d+(?:\.\d+)+)\.txt}i)
+  end
 
   auto_updates true
 

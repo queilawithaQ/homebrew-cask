@@ -7,17 +7,22 @@ cask "couchbase-server-enterprise" do
 
     app "couchbase-server-enterprise_#{version}/Couchbase Server.app"
   else
-    version "6.6.0"
-    sha256 "9ee7d7c9fd26f48676b06b39e205f45b89c9212a3a370f91ee19b585615f3597"
+    version "7.0.2"
+    sha256 "83e8e7e794b3eab4d9ae99b01f31d6c49dc1af33047e4931abc62620e8bda4f3"
 
     url "https://packages.couchbase.com/releases/#{version}/couchbase-server-enterprise_#{version}-macos_x86_64.dmg"
-    appcast "http://appcast.couchbase.com/membasex.xml"
 
     app "Couchbase Server.app"
   end
 
   name "Couchbase Server"
+  desc "Distributed NoSQL cloud database"
   homepage "https://www.couchbase.com/"
+
+  livecheck do
+    url "http://appcast.couchbase.com/membasex.xml"
+    strategy :sparkle
+  end
 
   conflicts_with cask: "couchbase-server-community"
 end

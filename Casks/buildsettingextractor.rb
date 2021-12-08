@@ -1,10 +1,10 @@
 cask "buildsettingextractor" do
-  version "1.4.1"
-  sha256 "2df87f5a23ef63f151b37b71c513c598cf612ffac113ee65f9f677281a26280b"
+  version "1.4.3"
+  sha256 "0c3cf0bc5ff9169080164521fe8214d9876121452820d1c32456b2a8a72cc2b4"
 
   url "https://github.com/dempseyatgithub/BuildSettingExtractor/releases/download/v#{version}/BuildSettingExtractor_#{version}.dmg"
-  appcast "https://github.com/dempseyatgithub/BuildSettingExtractor/releases.atom"
   name "BuildSettingExtractor"
+  desc "Xcode build settings extractor"
   homepage "https://github.com/dempseyatgithub/BuildSettingExtractor"
 
   depends_on macos: ">= :mojave"

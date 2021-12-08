@@ -3,8 +3,8 @@ cask "subnetcalc" do
     version "1.1"
     sha256 "19157baacac0cede6849356cb305a0ed2e4290e1e9e8ac4b691fd1d7ce1920cf"
   else
-    version "1.5"
-    sha256 "7dd69dbc4f6f8d305c98091a5540ca5e708f8c7483e2a237c1b7d3d8e915e748"
+    version "2.4"
+    sha256 "a47dd9a8a1ca21cfdba695d4eee95e13061c5c1f522f7c8c5114a5c6f02014cc"
   end
 
   url "http://subnetcalc.free.fr/download/subnetcalc-#{version}.dmg"
@@ -12,5 +12,15 @@ cask "subnetcalc" do
   desc "Tool to calculate IP subnets"
   homepage "http://subnetcalc.free.fr/"
 
+  livecheck do
+    url :homepage
+    regex(%r{href=.*?/subnetcalc[._-]?v?(\d+(?:\.\d+)+)\.dmg}i)
+  end
+
   app "SubnetCalc.app"
+
+  zap trash: [
+    "~/Library/Application Scripts/net.mulot.subnetcalc",
+    "~/Library/Containers/net.mulot.subnetcalc",
+  ]
 end

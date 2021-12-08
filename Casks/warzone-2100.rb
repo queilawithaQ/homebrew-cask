@@ -1,13 +1,17 @@
 cask "warzone-2100" do
-  version "3.4.1"
-  sha256 "daac52f69bb5e5bb7457c6af603612b71a0752724281c8d14b59731fbae7ebd0"
+  version "4.2.3"
+  sha256 "b65574dd0249ac5cd256d3c1f31d57183254e308ae7488be00751e2fdf197b53"
 
-  # github.com/Warzone2100/warzone2100/ was verified as official when first introduced to the cask
-  url "https://github.com/Warzone2100/warzone2100/releases/download/#{version}/warzone2100_macOS.zip"
-  appcast "https://github.com/Warzone2100/warzone2100/releases.atom"
+  url "https://github.com/Warzone2100/warzone2100/releases/download/#{version}/warzone2100_macOS_universal.zip",
+      verified: "github.com/Warzone2100/warzone2100/"
   name "Warzone 2100"
   desc "Free and open-source real time strategy game"
   homepage "https://wz2100.net/"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   app "Warzone 2100.app"
 

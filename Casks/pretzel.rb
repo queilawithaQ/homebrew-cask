@@ -1,11 +1,23 @@
 cask "pretzel" do
-  version "0.0.19"
-  sha256 "c3d91a4db3b3fe8fd64db9ed037e568b324dc6276efdd7f3b586272222f027a9"
+  version "2.9.4"
+  sha256 "3d8b59ab6790ebe87207473bbfb2180e9d7ed4e712e17dbf92c3041fbf32b906"
 
   url "https://download.pretzel.rocks/Pretzel-#{version}-mac.zip"
-  appcast "https://download.pretzel.rocks/latest-mac.json"
   name "Pretzel"
+  desc "DMCA-safe music for creators"
   homepage "https://www.pretzel.rocks/"
 
+  livecheck do
+    url "https://download.pretzel.rocks/latest-mac.yml"
+    strategy :electron_builder
+  end
+
   app "Pretzel.app"
+
+  zap trash: [
+    "~/Library/Application Support/@pretzel-aux",
+    "~/Library/Logs/Pretzel",
+    "~/Library/Preferences/rocks.pretzel.plist",
+    "~/Library/Saved Application State/rocks.pretzel.savedState",
+  ]
 end

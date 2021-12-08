@@ -1,12 +1,25 @@
 cask "inkdrop" do
-  version "5.1.1"
-  sha256 "68c1022ae0bad4cd8031280f6066af6b16ea22c4b46cd576b1138f192172f455"
+  arch = Hardware::CPU.intel? ? "x64" : "arm64"
 
-  # d3ip0rje8grhnl.cloudfront.net/ was verified as official when first introduced to the cask
-  url "https://d3ip0rje8grhnl.cloudfront.net/v#{version}/Inkdrop-#{version}-Mac.zip"
-  appcast "https://api.inkdrop.app/update/links"
+  version "5.4.3"
+
+  if Hardware::CPU.intel?
+    sha256 "40e15dbd8df80764f8776caf593b6f3214d479ea752016ea313b1abaed5c2325"
+  else
+    sha256 "ed016a680c71e4526ae9c54a045bba0b0226f27d676a9402b844e23205b1e938"
+  end
+
+  url "https://d3ip0rje8grhnl.cloudfront.net/v#{version}/Inkdrop-#{version}-#{arch}-Mac.zip",
+      verified: "d3ip0rje8grhnl.cloudfront.net/"
   name "Inkdrop"
   homepage "https://www.inkdrop.info/"
+
+  livecheck do
+    url "https://api.inkdrop.app/update/links"
+    strategy :page_match do |page|
+      JSON.parse(page)["version"]
+    end
+  end
 
   app "Inkdrop.app"
 

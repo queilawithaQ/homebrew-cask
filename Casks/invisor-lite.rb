@@ -1,11 +1,21 @@
 cask "invisor-lite" do
-  version "3.14"
-  sha256 "fcfb2d2bfd1144dd877f60ff5de51f1631f90a0affcd5da83a510f7661cb28cd"
+  version "3.17,989.211020"
+  sha256 "acdbf1f7b09fff9a450feb99f1a9686b698f82c71303fe6297f0485829fca09f"
 
-  url "https://www.invisorapp.com/download/InvisorLite-#{version}.dmg"
-  appcast "https://www.invisorapp.com/appcast_lite.xml"
+  url "https://www.invisorapp.com/download/InvisorLite-#{version.before_comma}.dmg"
   name "Invisor Lite"
+  desc "Media file inspector"
   homepage "https://www.invisorapp.com/"
 
+  livecheck do
+    url "https://www.invisorapp.com/appcast_lite.xml"
+    strategy :sparkle
+  end
+
   app "Invisor Lite.app"
+
+  zap trash: [
+    "~/Library/Preferences/com.pozdeev.invisorfree.plist",
+    "~/Library/Saved Application State/com.pozdeev.invisorfree.savedState",
+  ]
 end

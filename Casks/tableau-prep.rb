@@ -1,12 +1,19 @@
 cask "tableau-prep" do
-  version "2020.3.3"
-  sha256 "bea583dd782c932bf6eb6eaf7ed6e69e2ea13eb808087ef6ea022791da8fce2b"
+  version "2021.3.2"
+  sha256 "cbce3818b3ebf7e214ea2483a29e1e75af3da20d225a6819ec10f5f231d3e35f"
 
   url "https://downloads.tableau.com/esdalt/tableau_prep/#{version}/TableauPrep-#{version.dots_to_hyphens}.dmg"
-  appcast "https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://www.tableau.com/downloads/prep/mac",
-          must_contain: version.dots_to_hyphens
   name "Tableau Prep"
+  name "Tableau Prep Builder"
+  desc "Combine, shape, and clean your data for analysis"
   homepage "https://www.tableau.com/support/releases/prep"
+
+  livecheck do
+    url "https://www.tableau.com/downloads/prep/mac"
+    strategy :header_match do |headers|
+      headers["location"][/TableauPrep-(\d+(?:-\d+)+)\.dmg/i, 1].tr("-", ".")
+    end
+  end
 
   depends_on macos: ">= :el_capitan"
 
@@ -14,14 +21,14 @@ cask "tableau-prep" do
 
   uninstall pkgutil: [
     "com.amazon.redshiftodbc",
-    "simba.sparkodbc",
     "com.simba.sparkodbc",
     "com.simba.sqlserverodbc",
-    "com.tableausoftware.Maestro.app",
     "com.tableausoftware.desktopShortcut",
-    "com.tableausoftware.telemetry",
     "com.tableausoftware.FLEXNet.11.*",
+    "com.tableausoftware.Maestro.app",
     "com.tableausoftware.oracle",
     "com.tableausoftware.postgresql",
+    "com.tableausoftware.telemetry",
+    "simba.sparkodbc",
   ]
 end

@@ -1,12 +1,16 @@
 cask "sidenotes" do
-  version "1.2.1"
-  sha256 "59ea38805bc91cc4b1a2b5cd5ed576f69a891ca2a1c8be7b6a4503a15e56fc31"
+  version "1.4,156"
+  sha256 "f31cfc0decc06319ebd903f66e44c3a2db49fdc4132937d4104de067ed89996c"
 
-  url "https://www.apptorium.com/public/products/sidenotes/releases/SideNotes-#{version}.zip"
-  appcast "https://www.apptorium.com/updates/sidenotes"
+  url "https://www.apptorium.com/public/products/sidenotes/releases/SideNotes-#{version.before_comma}.zip"
   name "SideNotes"
   desc "Note-taking application"
   homepage "https://www.apptorium.com/sidenotes"
+
+  livecheck do
+    url "https://www.apptorium.com/updates/sidenotes"
+    strategy :sparkle
+  end
 
   depends_on macos: ">= :mojave"
 

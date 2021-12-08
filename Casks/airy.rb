@@ -1,12 +1,16 @@
 cask "airy" do
-  version "3.19,305"
-  sha256 "bcf67240d7fdc0858e3c02375bf7661472a88a0de097b3d9e0c290a953ca675d"
+  version "3.24,336"
+  sha256 :no_check
 
   url "https://cdn.eltima.com/download/airy.dmg"
-  appcast "https://cdn.eltima.com/download/airy-update/airy.xml"
   name "Airy"
   desc "YouTube video and MP3 downloader"
   homepage "https://mac.eltima.com/youtube-downloader-mac.html"
+
+  livecheck do
+    url "https://cdn.eltima.com/download/airy-update/airy.xml"
+    strategy :sparkle
+  end
 
   app "Airy.app"
 

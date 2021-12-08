@@ -1,15 +1,21 @@
 cask "gotomeeting" do
-  version "10.12.0,18425"
-  sha256 "ac6ecdd0f45f50bbae3ff2d4b1e02ba404af28027f76079c8d0e67a3484439d9"
+  version "19932"
+  sha256 "391573efc2043bf4f63be45e3540db531a9c631286d3b8504e5f3029618c825c"
 
-  # builds.cdn.getgo.com/builds/g2m/ was verified as official when first introduced to the cask
-  url "https://builds.cdn.getgo.com/builds/g2m/#{version.after_comma}/GoToMeeting.dmg"
-  appcast "https://support.goto.com/meeting/help/whats-new-g2m010012"
-  name "GotoMeeting"
-  desc "Online meeting, desktop sharing and video conferencing software package"
+  url "https://builds.cdn.getgo.com/builds/g2m/#{version}/GoToMeeting.dmg",
+      verified: "builds.cdn.getgo.com/builds/g2m/"
+  name "GoToMeeting"
+  desc "Online meetings, desktop sharing, and video conferencing"
   homepage "https://www.goto.com/meeting"
 
-  app "GotoMeeting.app"
+  livecheck do
+    url "https://link.gotomeeting.com/latest-dmg"
+    strategy :header_match do |headers|
+      headers["location"][%r{/([^/]+)/GoToMeeting\.dmg}i, 1]
+    end
+  end
+
+  app "GoToMeeting.app"
 
   zap trash: [
     "~/Library/Application Support/LogMeInInc/GoToMeeting",

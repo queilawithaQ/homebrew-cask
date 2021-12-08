@@ -1,15 +1,21 @@
 cask "messenger" do
-  version "73.2.121,249985498"
-  sha256 "104ee1faf4b00d6c77b9500ddd601f6388f25dd781e5dbb5a2c0b73cce68eaa0"
+  version "130.7.115,331335098"
+  sha256 "7f418d731eba031599e8113c3b9360f68b2d97515daf40452a550757e322cf52"
 
-  # facebook.com/messenger/desktop/ was verified as official when first introduced to the cask
-  url "https://www.facebook.com/messenger/desktop/update/#{version.after_comma}.zip"
-  # The appcast will fail CI due to its Cache-Control settings. See:
-  #   https://github.com/Homebrew/homebrew-cask/pull/90957#issuecomment-710740050
-  appcast "https://www.facebook.com/messenger/desktop/update/latest-mac.yml"
+  url "https://www.facebook.com/messenger/desktop/update/#{version.after_comma}.zip",
+      verified: "facebook.com/messenger/desktop/"
   name "Facebook Messenger"
   desc "Native desktop app for Messenger (formerly Facebook Messenger)"
   homepage "https://www.messenger.com/desktop"
+
+  livecheck do
+    url "https://www.facebook.com/messenger/desktop/update/latest-mac.yml"
+    strategy :electron_builder do |yml|
+      "#{yml["version"]},#{yml["path"][%r{/(\d+)\.zip}i, 1]}"
+    end
+  end
+
+  auto_updates true
 
   app "Messenger.app"
 

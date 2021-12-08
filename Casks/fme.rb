@@ -1,25 +1,29 @@
 cask "fme" do
-  version "2020.1.2.1-b20624"
-  sha256 "4106b25ed0c893ba1e364b1ea8affff4f196d268b5a8cba1513eb006b2e3b33c"
+  version "2021.2.0.1,21789"
+  sha256 "5bd89c262999f554490f6fba7de49cdb1ec8b840b148a5cb5652dd922ee32072"
 
-  url "https://downloads.safe.com/fme/#{version.major}/fme-desktop-#{version}-macosx.dmg"
-  appcast "https://www.macupdater.net/cgi-bin/extract_text/extract_text_split_easy.cgi?encoding=utf8&url=https://www.safe.com/api/downloads/&splitter_1=beta&index_1=0"
+  url "https://downloads.safe.com/fme/#{version.major}/fme-desktop-#{version.before_comma}-b#{version.after_comma}-macosx.pkg"
   name "FME Desktop"
   desc "Platform for integrating spatial data"
   homepage "https://www.safe.com/"
 
-  installer script: {
-    executable: "FME Desktop Installer.app/Contents/MacOS/applet",
-    sudo:       true,
-  }
+  livecheck do
+    url "https://www.safe.com/api/downloads/"
+    strategy :page_match do |page|
+      match = page.match(%r{/fme-desktop-(\d+(?:\.\d+)+)-b(\d+)-macosx\.pkg}i)
+      next if match.blank?
 
-  uninstall quit:   [
-    "com.safe.fmeworkbench",
-    "com.safe.datainspector",
-    "com.safe.fmequicktranslator",
-    "com.safe.fmehelp",
+      "#{match[1]},#{match[2]}"
+    end
+  end
+
+  pkg "fme-desktop-#{version.before_comma}-b#{version.after_comma}-macosx.pkg"
+
+  uninstall pkgutil: [
+    "com.safesoftware.pkg.engine.fme-desktop-#{version.major_minor}-b#{version.after_comma}-macosx",
+    "com.safesoftware.pkg.apps.fme-desktop-#{version.major_minor}-b#{version.after_comma}-macosx",
   ],
-            delete: [
+            delete:  [
               "/Applications/FME #{version.major_minor}",
               "/Library/FME/#{version.major_minor}",
             ]

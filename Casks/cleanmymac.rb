@@ -1,22 +1,23 @@
 cask "cleanmymac" do
-  version "4.6.14"
-  sha256 "0dc5b9cc0a2db3e2e7bf9b7fe946f9004659ea0cb25c5b5069a17cdf22954ddb"
+  version "4.9.3,40903.0.2111221225"
+  sha256 "27ab3734b54bef4741bd1661cd1a93139efd20bcd230727ba156c488e6887055"
 
-  # dl.devmate.com/com.macpaw.CleanMyMac was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/com.macpaw.CleanMyMac#{version.major}/CleanMyMacX.dmg"
-  appcast "https://updates.devmate.com/com.macpaw.CleanMyMac#{version.major}.xml"
+  url "https://dl.devmate.com/com.macpaw.CleanMyMac#{version.major}/CleanMyMacX.dmg",
+      verified: "dl.devmate.com/com.macpaw.CleanMyMac"
   name "CleanMyMac X"
   desc "Tool to remove unnecessary files and folders from disk"
   homepage "https://macpaw.com/cleanmymac"
+
+  livecheck do
+    url "https://updates.devmate.com/com.macpaw.CleanMyMac#{version.major}.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
   app "CleanMyMac X.app"
 
-  uninstall delete:     [
-    "/Library/PrivilegedHelperTools/com.macpaw.CleanMyMac#{version.major}.Agent",
-    "/private/var/run/com.macpaw.CleanMyMac#{version.major}.Agent.socket",
-  ],
+  uninstall delete:     "/Library/PrivilegedHelperTools/com.macpaw.CleanMyMac#{version.major}.Agent",
             launchctl:  [
               "com.macpaw.CleanMyMac#{version.major}.Agent",
               "com.macpaw.CleanMyMac#{version.major}.HealthMonitor",

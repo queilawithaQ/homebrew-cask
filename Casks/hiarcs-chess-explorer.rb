@@ -1,11 +1,18 @@
 cask "hiarcs-chess-explorer" do
-  version "1.9.4a"
-  sha256 "5dbeb42d597d93f24c89690f7d1a7a32bff9e8dfe38ec4ba396b4e3140c68db0"
+  version "1.11.1"
+  sha256 "6f188f9c9041ed5667f0398e7b2a9b00d998bd6c77e9391163895bbd746f49ee"
 
   url "https://www.hiarcs.com/hce/HIARCS-Chess-Explorer-Installer-v#{version}.pkg"
-  appcast "https://www.hiarcs.com/hce/mac-v120.htm"
   name "(Deep) HIARCS Chess Explorer"
+  desc "Chess database, analysis and game playing program"
   homepage "https://www.hiarcs.com/mac-chess-explorer.htm"
+
+  livecheck do
+    url "https://www.hiarcs.com/mac-chess-explorer-download.htm"
+    regex(%r{href=.*?/HIARCS-Chess-Explorer-Installer[._-]v?(\d+(?:\.\d+)+)\.pkg}i)
+  end
+
+  depends_on macos: ">= :high_sierra"
 
   pkg "HIARCS-Chess-Explorer-Installer-v#{version}.pkg"
 

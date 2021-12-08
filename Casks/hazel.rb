@@ -1,23 +1,32 @@
 cask "hazel" do
-  version "4.4.5"
-  sha256 "19f0a193831b8d61b8b3a5e87ab08e5295e4e7680d13615ed5b14b34f60c3cef"
+  version "5.1.1"
+  sha256 "b668aed30a4d1c3960ed5e9f9aee675f1a5f7cb8f43dfc21cb28b104d53b419b"
 
-  # s3.amazonaws.com/Noodlesoft/ was verified as official when first introduced to the cask
-  url "https://s3.amazonaws.com/Noodlesoft/Hazel-#{version}.dmg"
-  appcast "https://www.noodlesoft.com/Products/Hazel/generate-appcast.php"
+  url "https://s3.amazonaws.com/Noodlesoft/Hazel-#{version}.dmg",
+      verified: "s3.amazonaws.com/Noodlesoft/"
   name "Hazel"
+  desc "Automated organization"
   homepage "https://www.noodlesoft.com/"
 
+  livecheck do
+    url "https://www.noodlesoft.com/Products/Hazel/generate-appcast.php"
+    strategy :sparkle
+  end
+
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
-  prefpane "Install Hazel.app/Contents/Resources/Hazel.prefPane"
+  app "Hazel.app"
 
-  uninstall quit: "com.noodlesoft.HazelHelper"
+  uninstall quit: "86Z3GCJ4MF.com.noodlesoft.HazelHelper"
 
   zap trash: [
-    "~/Library/Logs/Hazel",
     "~/Library/Application Support/Hazel",
+    "~/Library/Caches/com.noodlesoft.HazelHelper",
+    "~/Library/Logs/Hazel",
+    "~/Library/Preferences/86Z3GCJ4MF.com.noodlesoft.HazelHelper.plist",
     "~/Library/Preferences/com.noodlesoft.Hazel.plist",
     "~/Library/Preferences/com.noodlesoft.HazelHelper.plist",
+    "~/Library/Saved Application State/com.noodlesoft.Hazel.savedState",
   ]
 end

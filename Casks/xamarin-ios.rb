@@ -1,11 +1,16 @@
 cask "xamarin-ios" do
-  version "14.0.0.0"
-  sha256 "b53974838ed67b7ee329837f742233542950a4760c698fa692a4b5b6c3f34f97"
+  version "15.2.0.1"
+  sha256 "5816a5abbd8a5d8054691c7501610bdd3e222687e2beacd3c3c7d385f0ffa105"
 
   url "https://dl.xamarin.com/MonoTouch/Mac/xamarin.ios-#{version}.pkg"
-  appcast "https://github.com/xamarin/xamarin-macios/releases.atom"
   name "Xamarin.iOS"
+  desc "Gives .NET developers complete access to iOS, watchOS, and tvOS SDK's"
   homepage "https://www.xamarin.com/platform"
+
+  livecheck do
+    url "https://software.xamarin.com/Service/Updates?v=2&pv4569c276-1397-4adb-9485-82a7696df22e=0"
+    regex(%r{/xamarin\.ios[._-]v?(\d+(?:\.\d+)+)\.pkg}i)
+  end
 
   pkg "xamarin.ios-#{version}.pkg"
 

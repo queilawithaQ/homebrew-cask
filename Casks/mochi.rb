@@ -1,11 +1,23 @@
 cask "mochi" do
-  version "1.6.11"
-  sha256 "c8fb5aacaf58dc2774bb0b40a88ee354ae3b2a0bf762089dddd1ae529ac7f854"
+  version "1.12.6"
+  sha256 "953f8f26ba3d0b8914482feaa8ecea41708aade513ac75293d9a9b52bd598a60"
 
   url "https://mochi.cards/releases/Mochi-#{version}.dmg"
-  appcast "https://mochi.cards/"
   name "Mochi"
+  desc "Study notes and flashcards using spaced repetition"
   homepage "https://mochi.cards/"
 
+  livecheck do
+    url :homepage
+    regex(%r{href=.*?/Mochi[._-]?v?(\d+(?:\.\d+)+)\.dmg}i)
+  end
+
   app "Mochi.app"
+
+  zap trash: [
+    "~/Library/Application Support/mochi",
+    "~/Library/Logs/Mochi",
+    "~/Library/Preferences/com.msteedman.mochi.plist",
+    "~/Library/Saved Application State/com.msteedman.mochi.savedState",
+  ]
 end

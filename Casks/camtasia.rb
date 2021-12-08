@@ -1,14 +1,25 @@
 cask "camtasia" do
-  version "2020.0.9"
-  sha256 "ab9ddf8c8916edd426554339ff859f6252dff406d3a81b095c09127ed5a67424"
+  version "2021.0.8"
+  sha256 "9dbb33a8254e715f9ca58f63ed9f21b8db14ee4670b91236bd6394fc4960a1a5"
 
-  url "https://download.techsmith.com/camtasiamac/releases/Camtasia.dmg"
-  appcast "https://support.techsmith.com/hc/en-us/articles/115006624748-Camtasia-Mac-Version-History"
+  url "https://download.techsmith.com/camtasiamac/releases/#{version.major[-2..]}#{version.minor_patch.no_dots}/Camtasia.dmg"
   name "Camtasia"
-  homepage "https://www.techsmith.com/camtasia.html"
+  desc "Screen recorder and video editor"
+  homepage "https://www.techsmith.com/video-editor.html"
+
+  livecheck do
+    url "https://support.techsmith.com/api/v2/help_center/en-us/articles/115006624748"
+    regex(/Camtasia\s*\(Mac\)\s*(\d+(?:\.\d+)+)/i)
+  end
 
   auto_updates true
-  depends_on macos: ">= :high_sierra"
+  depends_on macos: ">= :mojave"
 
   app "Camtasia #{version.major}.app"
+
+  zap trash: [
+    "~/Library/Application Support/TechSmith/Camtasia#{version.major}",
+    "~/Library/Preferences/com.techsmith.camtasia2021.plist",
+    "/Users/Shared/TechSmith/Camtasia",
+  ]
 end

@@ -1,15 +1,20 @@
 cask "blocs" do
-  version "3.5.5"
-  sha256 "b6d77c7d61279a71625b273f573fb8bb2fd9b7045ac6893faa23cc2d33513640"
+  version "4.4.1,441"
+  sha256 :no_check
 
-  url "https://blocsapp.com/download/Blocs#{version.major}.zip"
-  appcast "https://blocsapp.com/release-notes.html"
+  url "https://blocsapp.com/download/Blocs.zip"
   name "Blocs"
   desc "Visual web design software"
   homepage "https://blocsapp.com/"
 
+  livecheck do
+    url "https://blocsapp.com/update/v#{version.major}/info.xml"
+    strategy :sparkle
+  end
+
   auto_updates true
-  container nested: "Blocs#{version.major}/Blocs-#{version.major}.dmg"
+  depends_on macos: ">= :sierra"
+  container nested: "Blocs/Blocs-#{version.major}.dmg"
 
   app "Blocs.app"
 end

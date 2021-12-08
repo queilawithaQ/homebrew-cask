@@ -1,13 +1,19 @@
 cask "naver-whale" do
-  version "2.8.107.17"
-  sha256 "0e7330d46c163ce4229f5614e12974da488d4f0228ce4824eff074e7e265cf54"
+  version "2.11.126.23"
+  sha256 :no_check
 
-  # update.whale.naver.net/downloads/installers/ was verified as official when first introduced to the cask
-  url "http://update.whale.naver.net/downloads/installers/NaverWhale.dmg"
-  appcast "https://whale.naver.com/changelog/"
+  url "http://update.whale.naver.net/downloads/installers/NaverWhale.dmg",
+      verified: "update.whale.naver.net/downloads/installers/"
   name "NAVER Whale"
-  desc "Web browser made by Naver Co, Ltd"
+  desc "Web browser"
   homepage "https://whale.naver.com/"
+
+  livecheck do
+    url "https://cv.whale.naver.com/version/latest_version"
+    strategy :page_match do |page|
+      JSON.parse(page)["message"]["@version"]
+    end
+  end
 
   app "Whale.app"
 

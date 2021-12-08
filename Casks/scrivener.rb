@@ -1,16 +1,26 @@
 cask "scrivener" do
-  version "3.1.5,12258"
-  sha256 "cc8ead0d3f409fcd4bd1467a7ce443d4c10b58cfbbbc08386bb44150b4803806"
+  version "3.2.3,14869"
+  sha256 "2760233d150b765e8e965e6c618b324069f3ff274c69868eb91d8bd303bc8bb2"
 
-  # scrivener.s3.amazonaws.com/ was verified as official when first introduced to the cask
-  url "https://scrivener.s3.amazonaws.com/mac_updates/Scrivener_1012_#{version.after_comma}.zip"
-  appcast "https://www.literatureandlatte.com/downloads/scrivener-#{version.major}.xml"
+  url "https://scrivener.s3.amazonaws.com/mac_updates/Scrivener_1012_#{version.csv.second}.zip",
+      verified: "scrivener.s3.amazonaws.com/"
   name "Scrivener"
   desc "Word processing software with a typewriter style"
-  homepage "https://literatureandlatte.com/scrivener.php"
+  homepage "https://www.literatureandlatte.com/scrivener/overview"
+
+  livecheck do
+    url "https://www.literatureandlatte.com/downloads/scrivener-#{version.major}.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
   depends_on macos: ">= :sierra"
 
   app "Scrivener.app"
+
+  zap trash: [
+    "~/Library/Application Support/Scrivener",
+    "~/Library/Caches/com.literatureandlatte.scrivener#{version.major}",
+    "~/Library/Preferences/com.literatureandlatte.scrivener#{version.major}.plist",
+  ]
 end

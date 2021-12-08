@@ -1,13 +1,17 @@
 cask "openaudible" do
-  version "2.3.5"
-  sha256 "d84297a32ce342058ba908a69d68fbae28e9fcd70c5e1cbe6d05e26f9dbdfcf4"
+  version "3.2.2"
+  sha256 "f9c229319962b10196e321cbf2e7baa13a572eeaa7b4e8697585df270b6280f6"
 
-  # github.com/openaudible/ was verified as official when first introduced to the cask
-  url "https://github.com/openaudible/openaudible/releases/download/v#{version}/OpenAudible_#{version}_mac.dmg"
-  appcast "https://github.com/openaudible/openaudible/releases.atom"
+  url "https://github.com/openaudible/openaudible/releases/download/v#{version}/OpenAudible_#{version}.dmg",
+      verified: "github.com/openaudible/"
   name "OpenAudible"
-  desc "Open-source audible manager"
+  desc "Audiobook manager for Audible users"
   homepage "https://openaudible.org/"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   app "OpenAudible.app"
 
