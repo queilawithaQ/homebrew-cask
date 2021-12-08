@@ -1,6 +1,6 @@
 cask "podpisuj" do
-  version "5.5.36"
-  sha256 "a0d595774fa64097c1a47a509b76020b549e8a4231fbc3ddc93a1ab3186cd14e"
+  version "5.5.37"
+  sha256 "b3ae6ce6b3bcf76787dbb01c6320f6a7b72f8bad3ab30121a20a520d023d5fd9"
 
   url "https://www.podpisuj.sk/staticweb/install/podpisuj-#{version}.dmg"
   name "Podpisuj"
@@ -9,11 +9,8 @@ cask "podpisuj" do
 
   livecheck do
     url "https://www.podpisuj.sk/o/portal-services3/client/appVersion?ext=dmg&version=0"
-    strategy :page_match
     regex(/(\d+(?:\.\d+)+)/i)
   end
-
-  auto_updates true
 
   app "Podpisuj.app"
 
@@ -22,4 +19,8 @@ cask "podpisuj" do
     "~/Library/Preferences/com.archimetes.podpisuj.desktopapp.Podpisuj.plist",
     "~/Library/Saved Application State/com.archimetes.podpisuj.desktopapp.Podpisuj.savedState",
   ]
+
+  caveats do
+    license "https://www.podpisuj.sk/privacy"
+  end
 end

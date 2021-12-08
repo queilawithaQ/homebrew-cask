@@ -3,14 +3,14 @@ cask "pushplaylabs-sidekick" do
   livecheck_folder = Hardware::CPU.intel? ? "mac" : "macm1"
 
   if Hardware::CPU.intel?
-    version "94.13.2.14307,9d3f94f"
-    sha256 "2398a5131fe72e6569a2d26d0a210f04728a8d3f785578de42dcfc551d648590"
+    version "94.13.2.14501,a40177e"
+    sha256 "e09eca49d311b25f1b4023bcf379542a142c2a4f5ef957e8a478a2d4c957b327"
   else
-    version "94.13.2.14309,d50457d"
-    sha256 "c80fe9037c05abb1004922954e4b8c58ec62c0c5f0a1839b93e7ad31bedff5e1"
+    version "94.13.2.14503,893a1c9"
+    sha256 "74122a729fd0421265b55bbd10475a7cfc634145c6c1b37bb93323eb44d82fe5"
   end
 
-  url "https://sidekick-cdn-production.meetsidekick.com/builds/sidekick-mac-release-#{arch}-#{version.before_comma}-#{version.after_comma}-df.dmg"
+  url "https://sidekick-cdn-production.meetsidekick.com/builds/sidekick-mac-release-#{arch}-#{version.csv.first}-#{version.csv.second}-df.dmg"
   name "Sidekick"
   desc "Browser designed for modern work"
   homepage "https://www.meetsidekick.com/"
